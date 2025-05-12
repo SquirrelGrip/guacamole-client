@@ -19,7 +19,8 @@
 
 package org.apache.guacamole.event;
 
-import javax.annotation.Nonnull;
+import javax.validation.constraints.NotNull;
+
 import org.apache.guacamole.GuacamoleException;
 import org.apache.guacamole.GuacamoleResourceNotFoundException;
 import org.apache.guacamole.net.auth.AuthenticationProvider;
@@ -212,7 +213,7 @@ public class EventLoggingListener implements Listener {
     }
 
     @Override
-    public void handleEvent(@Nonnull Object event) throws GuacamoleException {
+    public void handleEvent(@NotNull Object event) throws GuacamoleException {
 
         // General object creation/modification/deletion
         if (event instanceof DirectorySuccessEvent)

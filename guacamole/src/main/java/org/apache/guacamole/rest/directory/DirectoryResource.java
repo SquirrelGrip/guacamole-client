@@ -26,9 +26,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.PATCH;
@@ -38,6 +38,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+
 import org.apache.guacamole.GuacamoleClientException;
 import org.apache.guacamole.GuacamoleException;
 import org.apache.guacamole.GuacamoleResourceNotFoundException;
@@ -73,16 +74,13 @@ import org.apache.guacamole.rest.jsonpatch.APIPatchResponse;
  * number of child DirectoryObjectResources, which are created with the factory
  * provided at the time of this object's construction.
  *
- * @param <InternalType>
- *     The type of object contained within the Directory that this
- *     DirectoryResource exposes. To avoid coupling the REST API too tightly to
- *     the extension API, these objects are not directly serialized or
- *     deserialized when handling REST requests.
- *
- * @param <ExternalType>
- *     The type of object used in interchange (ie: serialized/deserialized as
- *     JSON) between REST clients and this DirectoryResource when representing
- *     the InternalType.
+ * @param <InternalType> The type of object contained within the Directory that this
+ *                       DirectoryResource exposes. To avoid coupling the REST API too tightly to
+ *                       the extension API, these objects are not directly serialized or
+ *                       deserialized when handling REST requests.
+ * @param <ExternalType> The type of object used in interchange (ie: serialized/deserialized as
+ *                       JSON) between REST clients and this DirectoryResource when representing
+ *                       the InternalType.
  */
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -92,7 +90,7 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
      * The user that is accessing this resource.
      */
     private final AuthenticatedUser authenticatedUser;
-    
+
     /**
      * The UserContext associated with the Directory being exposed by this
      * DirectoryResource.
@@ -133,31 +131,20 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
      * Creates a new DirectoryResource which exposes the operations available
      * for the given Directory.
      *
-     * @param authenticatedUser
-     *     The user that is accessing this resource.
-     *
-     * @param userContext
-     *     The UserContext associated with the given Directory.
-     *
-     * @param internalType
-     *     The type of object contained within the given Directory.
-     *
-     * @param directory
-     *     The Directory being exposed by this DirectoryResource.
-     *
-     * @param translator
-     *     A DirectoryObjectTranslator implementation which handles the type of
-     *     objects contained within the given Directory.
-     *
-     * @param resourceFactory
-     *     A factory which can be used to create instances of resources
-     *     representing individual objects contained within the given Directory.
+     * @param authenticatedUser The user that is accessing this resource.
+     * @param userContext       The UserContext associated with the given Directory.
+     * @param internalType      The type of object contained within the given Directory.
+     * @param directory         The Directory being exposed by this DirectoryResource.
+     * @param translator        A DirectoryObjectTranslator implementation which handles the type of
+     *                          objects contained within the given Directory.
+     * @param resourceFactory   A factory which can be used to create instances of resources
+     *                          representing individual objects contained within the given Directory.
      */
     public DirectoryResource(AuthenticatedUser authenticatedUser,
-            UserContext userContext, Class<InternalType> internalType,
-            Directory<InternalType> directory,
-            DirectoryObjectTranslator<InternalType, ExternalType> translator,
-            DirectoryObjectResourceFactory<InternalType, ExternalType> resourceFactory) {
+                             UserContext userContext, Class<InternalType> internalType,
+                             Directory<InternalType> directory,
+                             DirectoryObjectTranslator<InternalType, ExternalType> translator,
+                             DirectoryObjectResourceFactory<InternalType, ExternalType> resourceFactory) {
         this.authenticatedUser = authenticatedUser;
         this.userContext = userContext;
         this.directory = directory;
@@ -171,17 +158,12 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
      * that represents the permissions affecting objects available within this
      * DirectoryResource.
      *
-     * @param permissions
-     *     The Permissions object from which the ObjectPermissionSet should be
-     *     retrieved.
-     *
-     * @return
-     *     The ObjectPermissionSet defined within the given Permissions object
-     *     that represents the permissions affecting objects available within
-     *     this DirectoryResource.
-     *
-     * @throws GuacamoleException
-     *     If an error prevents retrieval of permissions.
+     * @param permissions The Permissions object from which the ObjectPermissionSet should be
+     *                    retrieved.
+     * @return The ObjectPermissionSet defined within the given Permissions object
+     * that represents the permissions affecting objects available within
+     * this DirectoryResource.
+     * @throws GuacamoleException If an error prevents retrieval of permissions.
      */
     protected abstract ObjectPermissionSet getObjectPermissions(
             Permissions permissions) throws GuacamoleException;
@@ -190,22 +172,15 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
      * Notifies all registered listeners that the given operation has succeeded
      * against the object having the given identifier within the Directory
      * represented by this resource.
-     * 
-     * @param operation
-     *     The operation that was performed.
      *
-     * @param identifier
-     *     The identifier of the object affected by the operation.
-     *
-     * @param object
-     *     The specific object affected by the operation, if available. If not
-     *     available, this may be null.
-     *
-     * @throws GuacamoleException
-     *     If a listener throws a GuacamoleException from its event handler.
+     * @param operation  The operation that was performed.
+     * @param identifier The identifier of the object affected by the operation.
+     * @param object     The specific object affected by the operation, if available. If not
+     *                   available, this may be null.
+     * @throws GuacamoleException If a listener throws a GuacamoleException from its event handler.
      */
     protected void fireDirectorySuccessEvent(DirectoryEvent.Operation operation,
-                String identifier, InternalType object)
+                                             String identifier, InternalType object)
             throws GuacamoleException {
         listenerService.handleEvent(new DirectorySuccessEvent<InternalType>() {
 
@@ -247,27 +222,18 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
      * against the object having the given identifier within the Directory
      * represented by this resource.
      *
-     * @param operation
-     *     The operation that failed.
-     *
-     * @param identifier
-     *     The identifier of the object that would have been affected by the
-     *     operation had it succeeded.
-     *
-     * @param object
-     *     The specific object would have been affected by the operation, if
-     *     available, had it succeeded, including any changes that were
-     *     intended to be applied to the object. If not available, this may be
-     *     null.
-     *
-     * @param failure
-     *     The failure that occurred.
-     *
-     * @throws GuacamoleException
-     *     If a listener throws a GuacamoleException from its event handler.
+     * @param operation  The operation that failed.
+     * @param identifier The identifier of the object that would have been affected by the
+     *                   operation had it succeeded.
+     * @param object     The specific object would have been affected by the operation, if
+     *                   available, had it succeeded, including any changes that were
+     *                   intended to be applied to the object. If not available, this may be
+     *                   null.
+     * @param failure    The failure that occurred.
+     * @throws GuacamoleException If a listener throws a GuacamoleException from its event handler.
      */
     protected void fireDirectoryFailureEvent(DirectoryEvent.Operation operation,
-                String identifier, InternalType object, Throwable failure)
+                                             String identifier, InternalType object, Throwable failure)
             throws GuacamoleException {
         listenerService.handleEvent(new DirectoryFailureEvent<InternalType>() {
 
@@ -312,8 +278,7 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
     /**
      * Returns the user accessing this resource.
      *
-     * @return
-     *     The user accessing this resource.
+     * @return The user accessing this resource.
      */
     protected AuthenticatedUser getAuthenticatedUser() {
         return authenticatedUser;
@@ -323,8 +288,7 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
      * Returns the UserContext providing the Directory exposed by this
      * resource.
      *
-     * @return 
-     *     The UserContext providing the Directory exposed by this resource.
+     * @return The UserContext providing the Directory exposed by this resource.
      */
     protected UserContext getUserContext() {
         return userContext;
@@ -333,8 +297,7 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
     /**
      * Returns the Directory exposed by this resource.
      *
-     * @return 
-     *     The Directory exposed by this resource.
+     * @return The Directory exposed by this resource.
      */
     protected Directory<InternalType> getDirectory() {
         return directory;
@@ -345,10 +308,9 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
      * representing individual objects contained within the Directory exposed
      * by this resource.
      *
-     * @return 
-     *     A factory that can be used to create instances of resources
-     *     representing individual objects contained within the Directory
-     *     exposed by this resource.
+     * @return A factory that can be used to create instances of resources
+     * representing individual objects contained within the Directory
+     * exposed by this resource.
      */
     public DirectoryObjectResourceFactory<InternalType, ExternalType> getResourceFactory() {
         return resourceFactory;
@@ -358,15 +320,10 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
      * Filter and sanitize the provided external object, translate to the
      * internal type, and return the translated internal object.
      *
-     * @param object
-     *     The external object to filter and translate.
-     *
-     * @return
-     *     The filtered and translated internal object.
-     *
-     * @throws GuacamoleException
-     *     If an error occurs while filtering or translating the external
-     *     object.
+     * @param object The external object to filter and translate.
+     * @return The filtered and translated internal object.
+     * @throws GuacamoleException If an error occurs while filtering or translating the external
+     *                            object.
      */
     private InternalType filterAndTranslate(ExternalType object)
             throws GuacamoleException {
@@ -382,18 +339,13 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
      * Returns a map of all objects available within this DirectoryResource,
      * filtering the returned map by the given permission, if specified.
      *
-     * @param permissions
-     *     The set of permissions to filter with. A user must have one or more
-     *     of these permissions for the affected objects to appear in the
-     *     result. If null, no filtering will be performed.
-     *
-     * @return
-     *     A map of all visible objects. If a permission was specified, this
-     *     map will contain only those objects for which the current user has
-     *     that permission.
-     *
-     * @throws GuacamoleException
-     *     If an error is encountered while retrieving the objects.
+     * @param permissions The set of permissions to filter with. A user must have one or more
+     *                    of these permissions for the affected objects to appear in the
+     *                    result. If null, no filtering will be performed.
+     * @return A map of all visible objects. If a permission was specified, this
+     * map will contain only those objects for which the current user has
+     * that permission.
+     * @throws GuacamoleException If an error is encountered while retrieving the objects.
      */
     @GET
     public Map<String, ExternalType> getObjects(
@@ -427,25 +379,19 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
      * directory GET failure event if no object exists with the given identifier
      * in the directory.
      *
-     * @param identifier
-     *     The identifier of the object to retrieve from the directory.
-     *
-     * @param directory
-     *     The directory to fetch the object from. If null, the directory
-     *     associated with this DirectoryResource instance will be used.
-     *
-     * @return
-     *     The object from the directory with the provided identifier.
-     *
-     * @throws GuacamoleException
-     *     If no object with the provided identifier exists within the
-     *     directory, or if any other error occurs while attempting to retrieve
-     *     the object.
+     * @param identifier The identifier of the object to retrieve from the directory.
+     * @param directory  The directory to fetch the object from. If null, the directory
+     *                   associated with this DirectoryResource instance will be used.
+     * @return The object from the directory with the provided identifier.
+     * @throws GuacamoleException If no object with the provided identifier exists within the
+     *                            directory, or if any other error occurs while attempting to retrieve
+     *                            the object.
      */
-    @Nonnull
+    @NotNull
     private InternalType getObjectByIdentifier(
-            String identifier, @Nullable Directory<InternalType> directory)
-            throws GuacamoleException {
+            String identifier,
+            @Null Directory<InternalType> directory
+    ) throws GuacamoleException {
 
         // Use the directory associated with this instance if not otherwise
         // specified
@@ -459,8 +405,7 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
             if (object == null)
                 throw new GuacamoleResourceNotFoundException(
                         "Not found: \"" + identifier + "\"");
-        }
-        catch (GuacamoleException | RuntimeException | Error e) {
+        } catch (GuacamoleException | RuntimeException | Error e) {
             fireDirectoryFailureEvent(
                     DirectoryEvent.Operation.GET, identifier, null, e);
             throw e;
@@ -475,26 +420,17 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
      * return a APIPatchError with an error message extracted from the error.
      * If the provided throwable is not a known type, null will be returned.
      *
-     * @param op
-     *     The operation being attempted when the error occurred.
-     *
-     * @param identifier
-     *     The identifier of the object in question, if any.
-     *
-     * @param path
-     *     The path for the patch that was being applied when the error occurred.
-     *
-     * @param t
-     *     The error that occurred while attempting to apply the patch.
-     *
-     * @return
-     *     A APIPatchError with an error message extracted from the provided
-     *     throwable - if it's a known type, otherwise null.
+     * @param op         The operation being attempted when the error occurred.
+     * @param identifier The identifier of the object in question, if any.
+     * @param path       The path for the patch that was being applied when the error occurred.
+     * @param t          The error that occurred while attempting to apply the patch.
+     * @return A APIPatchError with an error message extracted from the provided
+     * throwable - if it's a known type, otherwise null.
      */
-    @Nullable
+    @Null
     private APIPatchError createPatchFailure(
-            @Nonnull APIPatch.Operation op, @Nullable String identifier,
-            @Nonnull String path, @Nonnull Throwable t) {
+            @NotNull APIPatch.Operation op, @Null String identifier,
+            @NotNull String path, @NotNull Throwable t) {
 
         /*
          * If the failure is a translatable type, use the translation directly
@@ -502,8 +438,8 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
          */
         if (t instanceof Translatable)
             return new APIPatchError(
-                op, identifier, path,
-                ((Translatable) t).getTranslatableMessage());
+                    op, identifier, path,
+                    ((Translatable) t).getTranslatableMessage());
 
         /*
          * If the failure represents a known Guacamole exception but is not
@@ -516,7 +452,7 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
             // through to the untranslated message
             TranslatableMessage message = new TranslatableMessage(
                     "APP.TEXT_UNTRANSLATED", Collections.singletonMap(
-                            "MESSAGE", ((GuacamoleException) t).getMessage()));
+                    "MESSAGE", ((GuacamoleException) t).getMessage()));
 
             return new APIPatchError(op, identifier, path, message);
         }
@@ -529,21 +465,16 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
      * Applies the given object patches, updating the underlying directory
      * accordingly. This operation supports addition, replacement, and removal of
      * objects through the "add", "replace", or "remove" patch operations. The
-     * path of each patch operation is of the form "/ID" where ID is the 
-     * identifier of the object being modified. In the case of object creation, 
-     * the identifier is ignored, as the identifier will be automatically 
+     * path of each patch operation is of the form "/ID" where ID is the
+     * identifier of the object being modified. In the case of object creation,
+     * the identifier is ignored, as the identifier will be automatically
      * provided. This operation is atomic.
      *
-     * @param patches
-     *     The patches to apply for this request.
-     *
-     * @throws GuacamoleException
-     *     If an error occurs while adding, replacing, or removing objects.
-     *
-     * @return
-     *     A response describing the outcome of each patch. Only the identifier
-     *     of each patched object will be included in the response, not the
-     *     full object.
+     * @param patches The patches to apply for this request.
+     * @return A response describing the outcome of each patch. Only the identifier
+     * of each patched object will be included in the response, not the
+     * full object.
+     * @throws GuacamoleException If an error occurs while adding, replacing, or removing objects.
      */
     @PATCH
     public APIPatchResponse patchObjects(List<APIPatch<ExternalType>> patches)
@@ -568,8 +499,8 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
                 if (!atomic)
                     throw new GuacamoleUnsupportedException(
                             "The extension providing this directory does not " +
-                            "support Atomic Operations. The patch cannot be " +
-                            "executed.");
+                                    "support Atomic Operations. The patch cannot be " +
+                                    "executed.");
 
                 // Keep a list of all objects that have been successfully
                 // added, replaced, or removed
@@ -615,9 +546,7 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
                             patchOutcomes.add(response);
                             creationSuccesses.add(response);
 
-                        }
-
-                        catch (GuacamoleException | RuntimeException | Error e) {
+                        } catch (GuacamoleException | RuntimeException | Error e) {
                             failed = true;
                             fireDirectoryFailureEvent(
                                     DirectoryEvent.Operation.ADD,
@@ -631,16 +560,14 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
                             if (patchError != null)
                                 patchOutcomes.add(patchError);
 
-                            // If an unexpected failure occurs, fall through to
-                            // the standard API error handling
+                                // If an unexpected failure occurs, fall through to
+                                // the standard API error handling
                             else
                                 throw e;
 
                         }
 
-                    }
-
-                    else if (op == APIPatch.Operation.replace) {
+                    } else if (op == APIPatch.Operation.replace) {
 
                         // The identifier of the object to be replaced
                         String identifier = path.substring(1);
@@ -654,7 +581,7 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
                             // directory GET failure event will be logged, and
                             // the update attempt will be aborted.
                             original = getObjectByIdentifier(identifier, directory);
-                            
+
                             // Apply the changes to the original object
                             translator.applyExternalChanges(
                                     original, patch.getValue());
@@ -668,10 +595,8 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
                             APIPatchOutcome response = new APIPatchOutcome(
                                     op, identifier, path);
                             patchOutcomes.add(response);
-                            
-                        }
 
-                        catch (GuacamoleException | RuntimeException | Error e) {
+                        } catch (GuacamoleException | RuntimeException | Error e) {
                             failed = true;
                             fireDirectoryFailureEvent(
                                     DirectoryEvent.Operation.UPDATE,
@@ -685,15 +610,13 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
                             if (patchError != null)
                                 patchOutcomes.add(patchError);
 
-                            // If an unexpected failure occurs, fall through to
-                            // the standard API error handling
+                                // If an unexpected failure occurs, fall through to
+                                // the standard API error handling
                             else
                                 throw e;
 
                         }
-                    }
-
-                    else if (op == APIPatch.Operation.remove) {
+                    } else if (op == APIPatch.Operation.remove) {
 
                         String identifier = path.substring(1);
 
@@ -710,8 +633,7 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
                                     op, identifier, path);
                             patchOutcomes.add(response);
                             creationSuccesses.add(response);
-                        }
-                        catch (GuacamoleException | RuntimeException | Error e) {
+                        } catch (GuacamoleException | RuntimeException | Error e) {
                             failed = true;
                             fireDirectoryFailureEvent(
                                     DirectoryEvent.Operation.REMOVE,
@@ -725,17 +647,15 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
                             if (patchError != null)
                                 patchOutcomes.add(patchError);
 
-                            // If an unexpected failure occurs, fall through to
-                            // the standard API error handling
+                                // If an unexpected failure occurs, fall through to
+                                // the standard API error handling
                             else
                                 throw e;
                         }
-                    }
-                    
-                    else {
+                    } else {
                         throw new GuacamoleUnsupportedException(
                                 "Unsupported patch operation \"" + op + "\". "
-                                + "Only add, replace, and remove are supported.");
+                                        + "Only add, replace, and remove are supported.");
                     }
 
 
@@ -804,15 +724,10 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
      * object that was created. The identifier of the created object will be
      * populated, if applicable.
      *
-     * @param object
-     *     The object to create.
-     *
-     * @return
-     *     The object that was created.
-     *
-     * @throws GuacamoleException
-     *     If an error occurs while adding the object to the underlying
-     *     directory.
+     * @param object The object to create.
+     * @return The object that was created.
+     * @throws GuacamoleException If an error occurs while adding the object to the underlying
+     *                            directory.
      */
     @POST
     public ExternalType createObject(ExternalType object)
@@ -830,8 +745,7 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
             directory.add(internal);
             fireDirectorySuccessEvent(DirectoryEvent.Operation.ADD, internal.getIdentifier(), internal);
             return object;
-        }
-        catch (GuacamoleException | RuntimeException | Error e) {
+        } catch (GuacamoleException | RuntimeException | Error e) {
             fireDirectoryFailureEvent(DirectoryEvent.Operation.ADD, internal.getIdentifier(), internal, e);
             throw e;
         }
@@ -842,19 +756,14 @@ public abstract class DirectoryResource<InternalType extends Identifiable, Exter
      * Retrieves an individual object, returning a DirectoryObjectResource
      * implementation which exposes operations available on that object.
      *
-     * @param identifier
-     *     The identifier of the object to retrieve.
-     *
-     * @return
-     *     A DirectoryObjectResource exposing operations available on the
-     *     object having the given identifier.
-     *
-     * @throws GuacamoleException
-     *     If an error occurs while retrieving the object.
+     * @param identifier The identifier of the object to retrieve.
+     * @return A DirectoryObjectResource exposing operations available on the
+     * object having the given identifier.
+     * @throws GuacamoleException If an error occurs while retrieving the object.
      */
     @Path("{identifier}")
     public DirectoryObjectResource<InternalType, ExternalType>
-        getObjectResource(@PathParam("identifier") String identifier)
+    getObjectResource(@PathParam("identifier") String identifier)
             throws GuacamoleException {
 
         // Fetch the object to be updated. If no object is found, a directory

@@ -17,14 +17,15 @@
  * under the License.
  */
 
-package org.apache.guacamole.tunnel.websocket.tomcat7;
+package org.apache.guacamole.tunnel.websocket.tomcat8;
+
+import org.apache.guacamole.GuacamoleException;
+import org.apache.guacamole.net.GuacamoleTunnel;
+import org.apache.guacamole.tunnel.TunnelRequest;
+import org.apache.guacamole.tunnel.TunnelRequestService;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import org.apache.guacamole.GuacamoleException;
-import org.apache.guacamole.net.GuacamoleTunnel;
-import org.apache.guacamole.tunnel.TunnelRequestService;
-import org.apache.guacamole.tunnel.TunnelRequest;
 
 /**
  * Tunnel servlet implementation which uses WebSocket as a tunnel backend,

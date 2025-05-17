@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.guacamole.tunnel.websocket.tomcat;
+package org.apache.guacamole.tunnel.websocket.tomcat7;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

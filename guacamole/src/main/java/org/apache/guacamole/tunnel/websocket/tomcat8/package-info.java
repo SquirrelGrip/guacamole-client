@@ -22,5 +22,5 @@
  * Tomcat 7.0, and may change significantly as there is no common WebSocket
  * API for Java yet.
  */
-package org.apache.guacamole.tunnel.websocket.tomcat;
+package org.apache.guacamole.tunnel.websocket.tomcat7;
 

@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.guacamole.tunnel.websocket.tomcat;
+package org.apache.guacamole.tunnel.websocket.tomcat7;
 
 import java.io.IOException;
 import java.io.InputStream;

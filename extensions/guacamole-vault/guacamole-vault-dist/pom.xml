@@ -27,14 +27,11 @@
     <packaging>pom</packaging>
     <name>guacamole-vault-dist</name>
     <url>http://guacamole.apache.org/</url>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
     <parent>
         <groupId>org.apache.guacamole</groupId>
         <artifactId>guacamole-vault</artifactId>
         <version>1.6.0</version>
-
+        <relativePath>../</relativePath>
     </parent>
     <dependencies>
         <dependency>

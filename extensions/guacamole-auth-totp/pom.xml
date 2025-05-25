@@ -26,10 +26,6 @@
     <groupId>org.apache.guacamole</groupId>
     <artifactId>guacamole-auth-totp</artifactId>
     <packaging>jar</packaging>
-    <properties>
-        <javase.version>3.5.3</javase.version>
-        <angular-maven-plugin.version>0.3.4</angular-maven-plugin.version>
-    </properties>
     <version>1.6.0</version>
     <name>guacamole-auth-totp</name>
     <url>http://guacamole.apache.org/</url>
@@ -37,7 +33,7 @@
         <groupId>org.apache.guacamole</groupId>
         <artifactId>extensions</artifactId>
         <version>1.6.0</version>
-
+        <relativePath>../</relativePath>
     </parent>
     <build>
         <plugins>

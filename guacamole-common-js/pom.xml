@@ -21,7 +21,6 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                         http://maven.apache.org/maven-v4_0_0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.guacamole</groupId>
     <artifactId>guacamole-common-js</artifactId>
@@ -29,37 +28,17 @@
     <version>1.6.0</version>
     <name>guacamole-common-js</name>
     <url>http://guacamole.apache.org/</url>
-
     <parent>
         <groupId>org.apache.guacamole</groupId>
         <artifactId>guacamole-client</artifactId>
         <version>1.6.0</version>
-
+        <relativePath>../</relativePath>
     </parent>
-
-    <properties>
-
-        <!--
-        The location where temporary files should be stored for communicating
-        between karma and firefox. The default location, /tmp, does not work
-        if firefox is installed via snap.
-        -->
-        <firefox.temp.dir>${project.build.directory}/tmp</firefox.temp.dir>
-
-        <!--
-        Skip tests unless requested otherwise with -DskipTests=false.
-        Skipped by default because these tests require firefox to be installed.
-        -->
-        <skipTests>true</skipTests>
-    </properties>
-
     <description>
         The base JavaScript API of the Guacamole project, providing JavaScript
         support for the Guacamole stack, including a full client
         implementation for the Guacamole protocol.
     </description>
-
-    <!-- All applicable licenses -->
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -98,22 +77,17 @@
                     <execution>
                         <id>default-minify</id>
                         <configuration>
-
                             <charset>UTF-8</charset>
                             <jsEngine>CLOSURE</jsEngine>
-
                             <jsSourceDir>/</jsSourceDir>
                             <jsTargetDir>/</jsTargetDir>
                             <jsFinalFile>all.js</jsFinalFile>
-
                             <jsSourceFiles>
                                 <jsSourceFile>common/license.js</jsSourceFile> 
                             </jsSourceFiles>
-
                             <jsSourceIncludes>
                                 <jsSourceInclude>modules/**/*.js</jsSourceInclude>
                             </jsSourceIncludes>
-
                         </configuration>
                         <goals>
                             <goal>minify</goal>
@@ -124,7 +98,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <skipTests>${skipTests}</skipTests>
                 </configuration>
@@ -132,7 +106,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>${maven-antrun-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>createFirefoxTempdir</id>
@@ -151,9 +125,9 @@
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.12.1</version>
+                <version>${frontend-maven-plugin.version}</version>
                 <configuration>
-                    <nodeVersion>v16.19.1</nodeVersion>
+                    <nodeVersion>${frontend-maven-plugin.nodeVersion}</nodeVersion>
                     <arguments>ci</arguments>
                     <karmaConfPath>karma-ci.conf.js</karmaConfPath>
                     <environmentVariables>

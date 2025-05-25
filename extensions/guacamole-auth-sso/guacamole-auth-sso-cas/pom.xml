@@ -26,12 +26,6 @@
     <groupId>org.apache.guacamole</groupId>
     <artifactId>guacamole-auth-sso-cas</artifactId>
     <packaging>jar</packaging>
-    <properties>
-        <bcpkix-jdk15to18.version>1.80</bcpkix-jdk15to18.version>
-        <cas-client-core.version>3.6.4</cas-client-core.version>
-        <jaxb-api.version>2.3.1</jaxb-api.version>
-        <commons-codec.version>1.17.1</commons-codec.version>
-    </properties>
     <version>1.6.0</version>
     <name>guacamole-auth-sso-cas</name>
     <url>http://guacamole.apache.org/</url>
@@ -39,15 +33,18 @@
         <groupId>org.apache.guacamole</groupId>
         <artifactId>guacamole-auth-sso</artifactId>
         <version>1.6.0</version>
+        <relativePath>../</relativePath>
     </parent>
     <dependencies>
         <dependency>
             <groupId>org.apache.guacamole</groupId>
             <artifactId>guacamole-ext</artifactId>
+            <version>1.6.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.guacamole</groupId>
             <artifactId>guacamole-auth-sso-base</artifactId>
+            <version>1.6.0</version>
         </dependency>
         <dependency>
             <groupId>org.jasig.cas.client</groupId>

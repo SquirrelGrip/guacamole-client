@@ -26,13 +26,6 @@
     <groupId>org.apache.guacamole</groupId>
     <artifactId>guacamole-auth-sso-saml</artifactId>
     <packaging>jar</packaging>
-    <properties>
-        <java-saml.version>2.9.1-SNAPSHOT</java-saml.version>
-        <woodstox-core.version>5.4.0</woodstox-core.version>
-        <xmlsec.version>2.2.6</xmlsec.version>
-        <commons-codec.version>1.17.1</commons-codec.version>
-        <commons-lang3.version>3.17.0</commons-lang3.version>
-    </properties>
     <version>1.6.0</version>
     <name>guacamole-auth-sso-saml</name>
     <url>http://guacamole.apache.org/</url>
@@ -40,13 +33,8 @@
         <groupId>org.apache.guacamole</groupId>
         <artifactId>guacamole-auth-sso</artifactId>
         <version>1.6.0</version>
+        <relativePath>../</relativePath>
     </parent>
-    <repositories>
-        <repository>
-            <id>jumpmind-id</id>
-            <url>https://maven.jumpmind.com/repo/</url>
-        </repository>
-    </repositories>
     <dependencies>
         <dependency>
             <groupId>org.apache.guacamole</groupId>
@@ -65,17 +53,16 @@
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
-            <version>${jakarta.servlet-api.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>jakarta.ws.rs</groupId>
             <artifactId>jakarta.ws.rs-api</artifactId>
-            <version>${jakarta.ws.rs-api.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.onelogin</groupId>
             <artifactId>java-saml</artifactId>
-            <version>${java-saml.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.fasterxml.woodstox</groupId>
@@ -98,12 +85,10 @@
         <dependency>
             <groupId>com.fasterxml.woodstox</groupId>
             <artifactId>woodstox-core</artifactId>
-            <version>${woodstox-core.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.santuario</groupId>
             <artifactId>xmlsec</artifactId>
-            <version>${xmlsec.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-codec</groupId>
@@ -114,12 +99,10 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>${commons-lang3.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>${commons-codec.version}</version>
         </dependency>
     </dependencies>
 </project>

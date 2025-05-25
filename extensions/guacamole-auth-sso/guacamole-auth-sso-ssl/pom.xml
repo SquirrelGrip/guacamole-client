@@ -29,15 +29,12 @@
         <groupId>org.apache.guacamole</groupId>
         <artifactId>guacamole-auth-sso</artifactId>
         <version>1.6.0</version>
+        <relativePath>../</relativePath>
     </parent>
     <packaging>jar</packaging>
     <name>guacamole-auth-sso-ssl</name>
     <url>http://guacamole.apache.org/</url>
-    <properties>
-        <bc-fips.version>2.1.0</bc-fips.version>
-        <bcpkix-fips.version>2.1.9</bcpkix-fips.version>
-        <bcutil-fips.version>2.1.4</bcutil-fips.version>
-    </properties>
+
     <build>
         <plugins>
             <plugin>

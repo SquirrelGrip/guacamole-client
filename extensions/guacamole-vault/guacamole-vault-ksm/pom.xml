@@ -21,17 +21,16 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                         http://maven.apache.org/maven-v4_0_0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.guacamole</groupId>
-    <artifactId>guacamole-auth-duo</artifactId>
+    <artifactId>guacamole-vault-ksm</artifactId>
     <packaging>jar</packaging>
     <version>1.6.0</version>
-    <name>guacamole-auth-duo</name>
+    <name>guacamole-vault-ksm</name>
     <url>http://guacamole.apache.org/</url>
     <parent>
         <groupId>org.apache.guacamole</groupId>
-        <artifactId>extensions</artifactId>
+        <artifactId>guacamole-vault</artifactId>
         <version>1.6.0</version>
         <relativePath>../</relativePath>
     </parent>
@@ -39,42 +38,26 @@
         <dependency>
             <groupId>org.apache.guacamole</groupId>
             <artifactId>guacamole-ext</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.guacamole</groupId>
+            <artifactId>guacamole-vault-base</artifactId>
             <version>1.6.0</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.google.inject</groupId>
-            <artifactId>guice</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.duosecurity</groupId>
-            <artifactId>duo-universal-sdk</artifactId>
-            <version>${duo-universal-sdk.version}</version>
+            <groupId>com.keepersecurity.secrets-manager</groupId>
+            <artifactId>core</artifactId>
+            <version>17.0.0</version>
             <exclusions>
                 <exclusion>
-                    <groupId>com.squareup.okhttp3</groupId>
-                    <artifactId>okhttp</artifactId>
+                    <groupId>org.jetbrains.kotlin</groupId>
+                    <artifactId>kotlin-reflect</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>com.squareup.okhttp3</groupId>
-                    <artifactId>logging-interceptor</artifactId>
+                    <groupId>org.jetbrains.kotlin</groupId>
+                    <artifactId>kotlin-stdlib</artifactId>
                 </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
-            <version>${okhttp.version}</version>
-            <exclusions>
                 <exclusion>
                     <groupId>org.jetbrains.kotlin</groupId>
                     <artifactId>kotlin-stdlib-common</artifactId>
@@ -86,19 +69,13 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>logging-interceptor</artifactId>
-            <version>${okhttp.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.jetbrains.kotlin</groupId>
-                    <artifactId>kotlin-stdlib-jdk8</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-reflect</artifactId>
+            <version>${kotlin.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-common</artifactId>
+            <artifactId>kotlin-stdlib</artifactId>
             <version>${kotlin.version}</version>
         </dependency>
         <dependency>
@@ -107,9 +84,9 @@
             <version>${kotlin.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.github.seancfoley</groupId>
-            <artifactId>ipaddress</artifactId>
-            <scope>provided</scope>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bc-fips</artifactId>
+            <version>${bc-fips.version}</version>
         </dependency>
     </dependencies>
 </project>

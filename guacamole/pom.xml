@@ -26,10 +26,6 @@
     <groupId>org.apache.guacamole</groupId>
     <artifactId>guacamole</artifactId>
     <packaging>war</packaging>
-    <properties>
-        <jakarta.ws.rs-api.version>4.0.0</jakarta.ws.rs-api.version>
-        <jetty-parent.version>20</jetty-parent.version>
-    </properties>
     <version>1.6.0</version>
     <name>guacamole</name>
     <url>http://guacamole.apache.org/</url>
@@ -37,7 +33,7 @@
         <groupId>org.apache.guacamole</groupId>
         <artifactId>guacamole-client</artifactId>
         <version>1.6.0</version>
-
+        <relativePath>../</relativePath>
     </parent>
     <description>
         The Guacamole web application, providing authentication and an HTML5
@@ -59,7 +55,7 @@
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.11.3</version>
+                <version>${frontend-maven-plugin.version}</version>
                 <configuration>
                     <workingDirectory>src/main/frontend</workingDirectory>
                     <installDirectory>${project.build.directory}</installDirectory>
@@ -75,8 +71,8 @@
                             <goal>install-node-and-npm</goal>
                         </goals>
                         <configuration>
-                            <nodeVersion>v18.18.0</nodeVersion>
-                            <npmVersion>9.8.1</npmVersion>
+                            <nodeVersion>${frontend-maven-plugin.nodeVersion}</nodeVersion>
+                            <npmVersion>${frontend-maven-plugin.npmVersion}</npmVersion>
                         </configuration>
                     </execution>
                     <execution>
@@ -137,7 +133,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>${maven-war-plugin.version}</version>
                 <configuration>
                     <webResources>
                         <resource>
@@ -202,10 +198,6 @@
         <dependency><groupId>org.apache.guacamole</groupId><artifactId>guacamole-ext</artifactId><version>1.6.0</version></dependency>
         <dependency><groupId>org.apache.tomcat</groupId><artifactId>tomcat-catalina</artifactId></dependency>
         <dependency><groupId>org.apache.tomcat</groupId><artifactId>tomcat-coyote</artifactId></dependency>
-        <dependency><groupId>org.eclipse.jetty.websocket</groupId><artifactId>websocket-api</artifactId></dependency>
-        <dependency><groupId>org.eclipse.jetty.websocket</groupId><artifactId>websocket-servlet</artifactId></dependency>
-        <dependency><groupId>org.eclipse.jetty</groupId><artifactId>jetty-parent</artifactId><version>${jetty-parent.version}</version><scope>provided</scope><type>pom</type></dependency>
-        <dependency><groupId>org.eclipse.jetty</groupId><artifactId>jetty-websocket</artifactId></dependency>
         <dependency><groupId>org.glassfish.hk2</groupId><artifactId>guice-bridge</artifactId></dependency>
         <dependency><groupId>org.glassfish.jersey.containers</groupId><artifactId>jersey-container-servlet-core</artifactId></dependency>
         <dependency><groupId>org.glassfish.jersey.inject</groupId><artifactId>jersey-hk2</artifactId></dependency>

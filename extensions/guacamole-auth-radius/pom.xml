@@ -21,37 +21,25 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                         http://maven.apache.org/maven-v4_0_0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.guacamole</groupId>
     <artifactId>guacamole-auth-radius</artifactId>
     <packaging>jar</packaging>
-    <properties>
-        <jradius-core.version>1.1.5</jradius-core.version>
-        <jradius-dictionary.version>1.1.5</jradius-dictionary.version>
-        <commons-collections.version>3.2.2</commons-collections.version>
-        <commons-logging.version>1.2</commons-logging.version>
-        <jradius-extended.version>1.1.5</jradius-extended.version>
-    </properties>
     <version>1.6.0</version>
     <name>guacamole-auth-radius</name>
     <url>http://guacamole.apache.org/</url>
-
     <parent>
         <groupId>org.apache.guacamole</groupId>
         <artifactId>extensions</artifactId>
         <version>1.6.0</version>
-
+        <relativePath>../</relativePath>
     </parent>
-
     <build>
         <plugins>
-
-            <!-- Pre-cache Angular templates with maven-angular-plugin -->
             <plugin>
                 <groupId>com.keithbranton.mojo</groupId>
                 <artifactId>angular-maven-plugin</artifactId>
-                <version>0.3.4</version>
+                <version>${angular-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <phase>generate-resources</phase>
@@ -67,8 +55,6 @@
                     <prefix>app/ext/radius</prefix>
                 </configuration>
             </plugin>
-
-            <!-- JS/CSS Minification Plugin -->
             <plugin>
                 <groupId>com.github.buckelieg</groupId>
                 <artifactId>minify-maven-plugin</artifactId>
@@ -77,38 +63,27 @@
                         <id>default-cli</id>
                         <configuration>
                             <charset>UTF-8</charset>
-
                             <webappSourceDir>${basedir}/src/main/resources</webappSourceDir>
                             <webappTargetDir>${project.build.directory}/classes</webappTargetDir>
-
                             <jsSourceDir>/</jsSourceDir>
                             <jsTargetDir>/</jsTargetDir>
                             <jsFinalFile>radius.js</jsFinalFile>
-
                             <jsSourceFiles>
                                 <jsSourceFile>license.txt</jsSourceFile>
                             </jsSourceFiles>
-
                             <jsSourceIncludes>
                                 <jsSourceInclude>**/*.js</jsSourceInclude>
                             </jsSourceIncludes>
-
-                            <!-- Do not minify and include tests -->
                             <jsSourceExcludes>
                                 <jsSourceExclude>**/*.test.js</jsSourceExclude>
                             </jsSourceExcludes>
                             <jsEngine>CLOSURE</jsEngine>
-
-                            <!-- Disable warnings for JSDoc annotations -->
                             <closureWarningLevels>
                                 <misplacedTypeAnnotation>OFF</misplacedTypeAnnotation>
                                 <nonStandardJsDocs>OFF</nonStandardJsDocs>
                             </closureWarningLevels>
-
                         </configuration>
-                        <goals>
-                            <goal>minify</goal>
-                        </goals>
+                        <goals><goal>minify</goal></goals>
                     </execution>
                 </executions>
             </plugin>
@@ -117,16 +92,12 @@
     </build>
 
     <dependencies>
-
-        <!-- Guacamole Extension API -->
         <dependency>
             <groupId>org.apache.guacamole</groupId>
             <artifactId>guacamole-ext</artifactId>
             <version>1.6.0</version>
             <scope>provided</scope>
         </dependency>
-        
-        <!-- Guava - Utility Library -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>

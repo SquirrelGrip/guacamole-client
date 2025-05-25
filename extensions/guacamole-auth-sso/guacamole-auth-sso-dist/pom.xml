@@ -21,59 +21,59 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                         http://maven.apache.org/maven-v4_0_0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.guacamole</groupId>
-    <artifactId>guacamole-auth-jdbc-base</artifactId>
-    <packaging>jar</packaging>
-    <name>guacamole-auth-jdbc-base</name>
+    <artifactId>guacamole-auth-sso-dist</artifactId>
+    <packaging>pom</packaging>
+    <name>guacamole-auth-sso-dist</name>
     <url>http://guacamole.apache.org/</url>
-    <properties>
-        <mybatis.version>3.5.19</mybatis.version>
-        <mybatis-guice.version>4.0.0</mybatis-guice.version>
-    </properties>
+
     <parent>
         <groupId>org.apache.guacamole</groupId>
-        <artifactId>guacamole-auth-jdbc</artifactId>
+        <artifactId>guacamole-auth-sso</artifactId>
         <version>1.6.0</version>
+        <relativePath>../</relativePath>
     </parent>
+
     <dependencies>
-        <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
+
+        <!-- CAS Authentication Extension -->
         <dependency>
             <groupId>org.apache.guacamole</groupId>
-            <artifactId>guacamole-ext</artifactId>
-            <scope>provided</scope>
+            <artifactId>guacamole-auth-sso-cas</artifactId>
+            <version>1.6.0</version>
         </dependency>
+
+        <!-- OpenID Authentication Extension -->
         <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-            <version>${mybatis.version}</version>
+            <groupId>org.apache.guacamole</groupId>
+            <artifactId>guacamole-auth-sso-openid</artifactId>
+            <version>1.6.0</version>
         </dependency>
+
+        <!-- SAML Authentication Extension -->
         <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis-guice</artifactId>
-            <version>${mybatis-guice.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>jcl-over-slf4j</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.github.spotbugs</groupId>
-                    <artifactId>spotbugs-annotations</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.apache.guacamole</groupId>
+            <artifactId>guacamole-auth-sso-saml</artifactId>
+            <version>1.6.0</version>
         </dependency>
+
+        <!-- SSL Authentication Extension -->
         <dependency>
-            <groupId>com.google.inject</groupId>
-            <artifactId>guice</artifactId>
+            <groupId>org.apache.guacamole</groupId>
+            <artifactId>guacamole-auth-sso-ssl</artifactId>
+            <version>1.6.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
+
     </dependencies>
+
+    <build>
+
+        <!-- Dist .tar.gz for guacamole-auth-sso should be named after the
+            parent guacamole-auth-sso project, not after guacamole-auth-sso-dist -->
+        <finalName>${project.parent.artifactId}-${project.parent.version}</finalName>
+
+    </build>
+
 </project>

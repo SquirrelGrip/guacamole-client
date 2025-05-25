@@ -23,74 +23,54 @@
                         http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.guacamole</groupId>
-    <artifactId>guacamole-vault-ksm</artifactId>
+    <artifactId>guacamole-auth-jdbc-base</artifactId>
     <packaging>jar</packaging>
-    <version>1.6.0</version>
-    <name>guacamole-vault-ksm</name>
+    <name>guacamole-auth-jdbc-base</name>
     <url>http://guacamole.apache.org/</url>
     <parent>
         <groupId>org.apache.guacamole</groupId>
-        <artifactId>guacamole-vault</artifactId>
+        <artifactId>guacamole-auth-jdbc</artifactId>
         <version>1.6.0</version>
-
+        <relativePath>../</relativePath>
     </parent>
-    <properties>
-        <kotlin.version>1.9.25</kotlin.version>
-        <bc-fips.version>2.1.0</bc-fips.version>
-    </properties>
     <dependencies>
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.apache.guacamole</groupId>
             <artifactId>guacamole-ext</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.guacamole</groupId>
-            <artifactId>guacamole-vault-base</artifactId>
-            <version>1.6.0</version>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>${mybatis.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.keepersecurity.secrets-manager</groupId>
-            <artifactId>core</artifactId>
-            <version>17.0.0</version>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-guice</artifactId>
+            <version>${mybatis-guice.version}</version>
             <exclusions>
                 <exclusion>
-                    <groupId>org.jetbrains.kotlin</groupId>
-                    <artifactId>kotlin-reflect</artifactId>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>jcl-over-slf4j</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.jetbrains.kotlin</groupId>
-                    <artifactId>kotlin-stdlib</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.jetbrains.kotlin</groupId>
-                    <artifactId>kotlin-stdlib-common</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.jetbrains.kotlin</groupId>
-                    <artifactId>kotlin-stdlib-jdk8</artifactId>
+                    <groupId>com.github.spotbugs</groupId>
+                    <artifactId>spotbugs-annotations</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-reflect</artifactId>
-            <version>${kotlin.version}</version>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib</artifactId>
-            <version>${kotlin.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-jdk8</artifactId>
-            <version>${kotlin.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bc-fips</artifactId>
-            <version>${bc-fips.version}</version>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
         </dependency>
     </dependencies>
 </project>

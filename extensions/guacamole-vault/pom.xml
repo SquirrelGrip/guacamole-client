@@ -36,9 +36,9 @@
 
     </parent>
     <modules>
-        <module>modules/guacamole-vault-dist</module>
-        <module>modules/guacamole-vault-base</module>
-        <module>modules/guacamole-vault-ksm</module>
+        <module>guacamole-vault-dist</module>
+        <module>guacamole-vault-base</module>
+        <module>guacamole-vault-ksm</module>
     </modules>
     <dependencyManagement>
         <dependencies>

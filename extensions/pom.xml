@@ -32,6 +32,7 @@
         <groupId>org.apache.guacamole</groupId>
         <artifactId>guacamole-client</artifactId>
         <version>1.6.0</version>
+        <relativePath>../</relativePath>
     </parent>
     <modules>
         <module>guacamole-auth-ban</module>
@@ -41,6 +42,7 @@
         <module>guacamole-auth-json</module>
         <module>guacamole-auth-ldap</module>
         <module>guacamole-auth-quickconnect</module>
+        <module>guacamole-auth-radius</module>
         <module>guacamole-auth-restrict</module>
         <module>guacamole-auth-sso</module>
         <module>guacamole-auth-totp</module>

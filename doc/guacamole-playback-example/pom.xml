@@ -29,21 +29,12 @@
     <version>1.6.0</version>
     <name>guacamole-playback-example</name>
     <url>http://guacamole.apache.org/</url>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven-war-plugin.version>3.3.1</maven-war-plugin.version>
-        <apache-rat-plugin.version>0.13</apache-rat-plugin.version>
-    </properties>
-
     <build>
         <plugins>
-
-            <!-- Overlay guacamole-common-js (zip) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>${maven-war-plugin.version}</version>
+                <version>3.3.1</version>
                 <configuration>
                     <overlays>
                         <overlay>
@@ -54,13 +45,10 @@
                     </overlays>
                 </configuration>
             </plugin>
-
-            <!-- Verify format using Apache RAT -->
             <plugin>
                 <groupId>org.apache.rat</groupId>
                 <artifactId>apache-rat-plugin</artifactId>
-                <version>${apache-rat-plugin.version}</version>
-
+                <version>0.13</version>
                 <configuration>
                     <excludes>
                         <exclude>src/main/webapp/recording.guac</exclude>

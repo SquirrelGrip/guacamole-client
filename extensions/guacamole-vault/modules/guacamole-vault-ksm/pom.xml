@@ -21,7 +21,6 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                         http://maven.apache.org/maven-v4_0_0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.guacamole</groupId>
     <artifactId>guacamole-vault-ksm</artifactId>
@@ -29,41 +28,31 @@
     <version>1.6.0</version>
     <name>guacamole-vault-ksm</name>
     <url>http://guacamole.apache.org/</url>
-
     <parent>
         <groupId>org.apache.guacamole</groupId>
         <artifactId>guacamole-vault</artifactId>
         <version>1.6.0</version>
-        <relativePath>../../</relativePath>
-    </parent>
 
+    </parent>
     <properties>
         <kotlin.version>1.9.25</kotlin.version>
+        <bc-fips.version>2.1.0</bc-fips.version>
     </properties>
-
     <dependencies>
-
-        <!-- Guacamole Extension API -->
         <dependency>
             <groupId>org.apache.guacamole</groupId>
             <artifactId>guacamole-ext</artifactId>
             <scope>provided</scope>
         </dependency>
-
-        <!-- Guacamole base key vault support -->
         <dependency>
             <groupId>org.apache.guacamole</groupId>
             <artifactId>guacamole-vault-base</artifactId>
             <version>1.6.0</version>
         </dependency>
-
         <dependency>
             <groupId>com.keepersecurity.secrets-manager</groupId>
             <artifactId>core</artifactId>
             <version>17.0.0</version>
-
-            <!-- Correct version conflict (different versions across transitive
-                dependencies) -->
             <exclusions>
                 <exclusion>
                     <groupId>org.jetbrains.kotlin</groupId>
@@ -82,10 +71,7 @@
                     <artifactId>kotlin-stdlib-jdk8</artifactId>
                 </exclusion>
             </exclusions>
-
         </dependency>
-
-        <!-- Use same version of Kotlin across all dependencies -->
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-reflect</artifactId>
@@ -101,14 +87,10 @@
             <artifactId>kotlin-stdlib-jdk8</artifactId>
             <version>${kotlin.version}</version>
         </dependency>
-
-        <!-- Use FIPS variant of Bouncy Castle crypto library -->
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bc-fips</artifactId>
-            <version>2.1.0</version>
+            <version>${bc-fips.version}</version>
         </dependency>
-
     </dependencies>
-
 </project>

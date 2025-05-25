@@ -26,23 +26,23 @@
     <groupId>org.apache.guacamole</groupId>
     <artifactId>guacamole</artifactId>
     <packaging>war</packaging>
+    <properties>
+        <jakarta.ws.rs-api.version>4.0.0</jakarta.ws.rs-api.version>
+        <jetty-parent.version>20</jetty-parent.version>
+    </properties>
     <version>1.6.0</version>
     <name>guacamole</name>
     <url>http://guacamole.apache.org/</url>
-
     <parent>
         <groupId>org.apache.guacamole</groupId>
         <artifactId>guacamole-client</artifactId>
         <version>1.6.0</version>
-        <relativePath>../</relativePath>
-    </parent>
 
+    </parent>
     <description>
         The Guacamole web application, providing authentication and an HTML5
         remote desktop client.
     </description>
-
-    <!-- All applicable licenses -->
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -50,17 +50,12 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-
-    <!-- Git repository -->
     <scm>
         <url>https://github.com/apache/guacamole-client</url>
         <connection>scm:git:https://git.wip-us.apache.org/repos/asf/guacamole-client.git</connection>
     </scm>
-
     <build>
         <plugins>
-
-            <!-- Build AngularJS portion of application using NPM -->
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
@@ -68,13 +63,10 @@
                 <configuration>
                     <workingDirectory>src/main/frontend</workingDirectory>
                     <installDirectory>${project.build.directory}</installDirectory>
-
-                    <!-- Newer Node.js requires the following to avoid an "ERR_OSSL_EVP_UNSUPPORTED"
-                    error when WebPack attempts to use its default hash (MD4) for content hashing -->
                     <environmentVariables>
                         <NODE_OPTIONS>--openssl-legacy-provider</NODE_OPTIONS>
                     </environmentVariables>
-
+                    <skip>true</skip>
                 </configuration>
                 <executions>
                     <execution>
@@ -108,9 +100,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!-- Copy automatically-generated set of NPM module dependencies for
-                later use by LICENSE generator -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -135,8 +124,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!-- Automatically generate LICENSE and NOTICE -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -147,16 +134,12 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.1</version>
                 <configuration>
-
                     <webResources>
-
-                        <!-- Add frontend folder to war package ... -->
                         <resource>
                             <directory>src/main/frontend/dist</directory>
                             <excludes>
@@ -165,8 +148,6 @@
                                 <exclude>verifyCachedVersion.js</exclude>
                             </excludes>
                         </resource>
-
-                        <!-- ... but filter index.html and translation strings -->
                         <resource>
                             <directory>src/main/frontend/dist</directory>
                             <filtering>true</filtering>
@@ -176,16 +157,11 @@
                                 <include>verifyCachedVersion.js</include>
                             </includes>
                         </resource>
-
-                        <!-- Include all licenses within META-INF -->
                         <resource>
                             <directory>${project.build.directory}/licenses</directory>
                             <targetPath>META-INF</targetPath>
                         </resource>
-
                     </webResources>
-
-                    <!-- Add files from guacamole-common-js -->
                     <overlays>
                         <overlay>
                             <groupId>org.apache.guacamole</groupId>
@@ -193,7 +169,6 @@
                             <type>zip</type>
                         </overlay>
                     </overlays>
-            
                 </configuration>
                 <executions>
                     <execution>
@@ -208,156 +183,35 @@
 
         </plugins>
     </build>
-
     <dependencies>
-
-        <!-- Java servlet API -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
+        <dependency><groupId>ch.qos.logback</groupId><artifactId>logback-classic</artifactId>
+            <exclusions><exclusion><groupId>com.sun.mail</groupId><artifactId>javax.mail</artifactId></exclusion></exclusions>
         </dependency>
-
-        <!-- JSR 356 WebSocket API -->
-        <dependency>
-            <groupId>javax.websocket</groupId>
-            <artifactId>javax.websocket-api</artifactId>
-        </dependency>
-
-        <!-- Logging -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jul-to-slf4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <exclusions>
-
-                <!-- Exclude optional dependency on JavaMail -->
-                <exclusion>
-                    <groupId>com.sun.mail</groupId>
-                    <artifactId>javax.mail</artifactId>
-                </exclusion>
-
-            </exclusions>
-        </dependency>
-
-        <!-- Guacamole Extension API -->
-        <dependency>
-            <groupId>org.apache.guacamole</groupId>
-            <artifactId>guacamole-ext</artifactId>
-            <version>1.6.0</version>
-        </dependency>
-
-        <!-- Guacamole JavaScript API -->
-        <dependency>
-            <groupId>org.apache.guacamole</groupId>
-            <artifactId>guacamole-common-js</artifactId>
-            <version>1.6.0</version>
-            <type>zip</type>
-            <scope>runtime</scope>
-        </dependency>
-
-        <!-- Jetty 8 servlet API (websocket)  -->
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-websocket</artifactId>
-        </dependency>
-
-        <!-- Jetty 9.0 servlet API (websocket)  -->
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-parent</artifactId>
-            <version>20</version>
-            <scope>provided</scope>
-            <type>pom</type>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty.websocket</groupId>
-            <artifactId>websocket-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty.websocket</groupId>
-            <artifactId>websocket-servlet</artifactId>
-        </dependency>
-
-        <!-- Tomcat servlet API (websocket)  -->
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-catalina</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-coyote</artifactId>
-        </dependency>
-
-        <!-- Guice - Dependency Injection -->
-        <dependency>
-            <groupId>com.google.inject</groupId>
-            <artifactId>guice</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.google.inject.extensions</groupId>
-            <artifactId>guice-assistedinject</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.google.inject.extensions</groupId>
-            <artifactId>guice-servlet</artifactId>
-        </dependency>
-        
-        <!-- Jersey - JAX-RS Implementation -->
-        <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-servlet-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.inject</groupId>
-            <artifactId>jersey-hk2</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.hk2</groupId>
-            <artifactId>guice-bridge</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-json-jackson</artifactId>
-            <exclusions>
-
-                <!-- Resolve version conflict (see below - transitive
-                    dependencies of jersey-media-json-jackson disagree on
-                    1.2.1 vs. 1.2.2) -->
-                <exclusion>
-                    <groupId>jakarta.activation</groupId>
-                    <artifactId>jakarta.activation-api</artifactId>
-                </exclusion>
-
-            </exclusions>
-        </dependency>
-
-        <!-- JSR-250 annotations -->
-        <dependency>
-            <groupId>javax.annotation</groupId>
-            <artifactId>jsr250-api</artifactId>
-        </dependency>
-        
-        <!-- Guava Base Libraries -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
-
-        <!-- Force use of version 1.2.2 (transitive dependencies of
-            jersey-media-json-jackson disagree on 1.2.1 vs. 1.2.2) -->
-        <dependency>
-            <groupId>jakarta.activation</groupId>
-            <artifactId>jakarta.activation-api</artifactId>
-        </dependency>
-
+        <dependency><groupId>com.google.guava</groupId><artifactId>guava</artifactId></dependency>
+        <dependency><groupId>com.google.inject.extensions</groupId><artifactId>guice-assistedinject</artifactId></dependency>
+        <dependency><groupId>com.google.inject.extensions</groupId><artifactId>guice-servlet</artifactId></dependency>
+        <dependency><groupId>com.google.inject</groupId><artifactId>guice</artifactId></dependency>
+        <dependency><groupId>jakarta.activation</groupId><artifactId>jakarta.activation-api</artifactId></dependency>
+        <dependency><groupId>jakarta.annotation</groupId><artifactId>jakarta.annotation-api</artifactId></dependency>
+        <dependency><groupId>jakarta.inject</groupId><artifactId>jakarta.inject-api</artifactId></dependency>
+        <dependency><groupId>jakarta.servlet</groupId><artifactId>jakarta.servlet-api</artifactId></dependency>
+        <dependency><groupId>jakarta.validation</groupId><artifactId>jakarta.validation-api</artifactId></dependency>
+        <dependency><groupId>jakarta.websocket</groupId><artifactId>jakarta.websocket-api</artifactId></dependency>
+        <dependency><groupId>jakarta.ws.rs</groupId><artifactId>jakarta.ws.rs-api</artifactId></dependency>
+        <dependency><groupId>org.apache.guacamole</groupId><artifactId>guacamole-common-js</artifactId><version>1.6.0</version><type>zip</type><scope>runtime</scope></dependency>
+        <dependency><groupId>org.apache.guacamole</groupId><artifactId>guacamole-ext</artifactId><version>1.6.0</version></dependency>
+        <dependency><groupId>org.apache.tomcat</groupId><artifactId>tomcat-catalina</artifactId></dependency>
+        <dependency><groupId>org.apache.tomcat</groupId><artifactId>tomcat-coyote</artifactId></dependency>
+        <dependency><groupId>org.eclipse.jetty.websocket</groupId><artifactId>websocket-api</artifactId></dependency>
+        <dependency><groupId>org.eclipse.jetty.websocket</groupId><artifactId>websocket-servlet</artifactId></dependency>
+        <dependency><groupId>org.eclipse.jetty</groupId><artifactId>jetty-parent</artifactId><version>${jetty-parent.version}</version><scope>provided</scope><type>pom</type></dependency>
+        <dependency><groupId>org.eclipse.jetty</groupId><artifactId>jetty-websocket</artifactId></dependency>
+        <dependency><groupId>org.glassfish.hk2</groupId><artifactId>guice-bridge</artifactId></dependency>
+        <dependency><groupId>org.glassfish.jersey.containers</groupId><artifactId>jersey-container-servlet-core</artifactId></dependency>
+        <dependency><groupId>org.glassfish.jersey.inject</groupId><artifactId>jersey-hk2</artifactId></dependency>
+        <dependency><groupId>org.glassfish.jersey.media</groupId><artifactId>jersey-media-json-jackson</artifactId><exclusions><exclusion><groupId>jakarta.activation</groupId><artifactId>jakarta.activation-api</artifactId></exclusion></exclusions></dependency>
+        <dependency><groupId>org.slf4j</groupId><artifactId>jul-to-slf4j</artifactId></dependency>
+        <dependency><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId></dependency>
+        <dependency><groupId>org.apache.tomcat</groupId><artifactId>tomcat-websocket-client-api</artifactId></dependency>
     </dependencies>
-
 </project>

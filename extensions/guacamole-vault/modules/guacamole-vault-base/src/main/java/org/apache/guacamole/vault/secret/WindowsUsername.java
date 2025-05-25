@@ -19,10 +19,10 @@
 
 package org.apache.guacamole.vault.secret;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.annotation.Nonnull;
 
 /**
  * A class representing a Windows username, which may optionally also include
@@ -67,7 +67,7 @@ public class WindowsUsername {
      *     The username, which should be the entire value as extracted
      *     from the vault.
      */
-    private WindowsUsername(@Nonnull String username) {
+    private WindowsUsername(@NotNull String username) {
         this.username = username;
         this.domain = null;
     }
@@ -82,7 +82,9 @@ public class WindowsUsername {
      *     The domain portion of the field value from the vault.
      */
     private WindowsUsername(
-            @Nonnull String username, @Nonnull String domain) {
+            @NotNull String username,
+            @NotNull String domain
+    ) {
         this.username = username;
         this.domain = domain;
     }

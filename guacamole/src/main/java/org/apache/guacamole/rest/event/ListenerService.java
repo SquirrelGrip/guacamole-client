@@ -20,7 +20,7 @@
 package org.apache.guacamole.rest.event;
 
 import java.util.List;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.apache.guacamole.GuacamoleException;
 import org.apache.guacamole.net.event.listener.Listener;
 

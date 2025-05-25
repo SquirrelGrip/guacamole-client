@@ -21,35 +21,29 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                         http://maven.apache.org/maven-v4_0_0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.guacamole</groupId>
     <artifactId>guacamole-vault-base</artifactId>
     <packaging>jar</packaging>
     <name>guacamole-vault-base</name>
     <url>http://guacamole.apache.org/</url>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jakarta.validation-api.version>3.1.1</jakarta.validation-api.version>
+        <annotations.version>24.0.0</annotations.version>
     </properties>
-
     <parent>
         <groupId>org.apache.guacamole</groupId>
         <artifactId>guacamole-vault</artifactId>
         <version>1.6.0</version>
-        <relativePath>../../</relativePath>
+
     </parent>
-
     <dependencies>
-
-        <!-- Guacamole Extension API -->
         <dependency>
             <groupId>org.apache.guacamole</groupId>
             <artifactId>guacamole-ext</artifactId>
             <scope>provided</scope>
         </dependency>
-
-        <!-- Jackson for YAML support -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
@@ -58,15 +52,11 @@
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-yaml</artifactId>
         </dependency>
-
-        <!-- JUnit -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <!-- Guice -->
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
@@ -75,7 +65,15 @@
             <groupId>com.google.inject.extensions</groupId>
             <artifactId>guice-assistedinject</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>${annotations.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+        </dependency>
     </dependencies>
-
 </project>

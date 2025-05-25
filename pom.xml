@@ -31,81 +31,70 @@
     <url>http://guacamole.apache.org/</url>
 
     <properties>
-
-        <!-- Core properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!-- Dependency versions -->
-        <guava.version>32.1.3-jre</guava.version>
-        <guice.version>5.1.0</guice.version>
-        <hk2.version>2.6.1</hk2.version>
+        <annotations.version>26.0.2</annotations.version>
+        <apache-rat-plugin.version>0.13</apache-rat-plugin.version>
+        <build-helper-maven-plugin.version>3.2.0</build-helper-maven-plugin.version>
+        <caffeine.version>2.9.3</caffeine.version>
+        <dependency-check-maven.version>8.3.1</dependency-check-maven.version>
+        <error_prone_annotations.version>2.38.0</error_prone_annotations.version>
+        <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
+        <guava.version>33.4.8-jre</guava.version>
+        <guice.version>7.0.0</guice.version>
+        <hk2.version>3.0.6</hk2.version>
         <ipaddress.version>5.5.1</ipaddress.version>
-        <jakarta.activation-api.version>1.2.2</jakarta.activation-api.version>
-        <jackson.version>2.19.0</jackson.version>
         <jackson-databind.version>2.19.0</jackson-databind.version>
-        <javax.annotation-api.version>1.3.2</javax.annotation-api.version>
-        <javax.websocket-api.version>1.1</javax.websocket-api.version>
-        <jersey.version>2.46</jersey.version>
-        <jetty-websocket.version>8.1.1.v20120215</jetty-websocket.version>
+        <jackson.version>2.19.0</jackson.version>
+        <jakarta.activation-api.version>2.1.3</jakarta.activation-api.version>
+        <jakarta.annotation-api.version>3.0.0</jakarta.annotation-api.version>
+        <jakarta.inject-api.version>2.0.1</jakarta.inject-api.version>
+        <jakarta.websocket-api.version>2.2.0</jakarta.websocket-api.version>
+        <jakarta.ws.rs-api.version>4.0.0</jakarta.ws.rs-api.version>
+        <jakarta.validation-api.version>3.1.1</jakarta.validation-api.version>
+        <jersey.version>3.1.10</jersey.version>
+        <jetty-websocket.version>8.2.0.v20160908</jetty-websocket.version>
         <jsr250-api.version>1.0</jsr250-api.version>
         <junit.version>5.12.2</junit.version>
         <junit4.version>4.13.2</junit4.version>
         <logback.version>1.3.15</logback.version>
+        <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
+        <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
+        <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
+        <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
+        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+        <maven-war-plugin.version>3.3.1</maven-war-plugin.version>
+        <minify-maven-plugin.version>2.0.1</minify-maven-plugin.version>
+        <plexus-utils.version>3.5.1</plexus-utils.version>
+        <jakarta.servlet-api.version>6.1.0</jakarta.servlet-api.version>
         <slf4j.version>2.0.17</slf4j.version>
-        <servlet-api.version>2.5</servlet-api.version>
-        <tomcat-catalina.version>8.5.98</tomcat-catalina.version>
-        <websocket-api.version>9.0.7.v20131107</websocket-api.version>
+        <tomcat.version>11.0.7</tomcat.version>
+        <versions-maven-plugin.version>2.16.0</versions-maven-plugin.version>
+        <websocket-api.version>9.4.57.v20241219</websocket-api.version>
 
-        <!-- The directory that should receive all generated dependency lists
-            (for LICENSE generation) -->
-        <dependency.list.directory>${project.build.directory}/dependencies</dependency.list.directory>
-
-        <!-- Set to "true" to ignore errors that occur during automatic LICENSE
-            file generation (such as non-existent license documentation) as
-            well as errors that occur during the RAT check (such as incorrect
-            or missing license headers). -->
-        <ignoreLicenseErrors>false</ignoreLicenseErrors>
-
-        <!-- Set to "true" to perform automated checks for available dependency
-            updates, including whether the declared versions of any
-            dependencies have associated CVEs in NVD. Beware that both checks
-            may produce false positives and false negatives. Updates need to be
-            checked for compatibility and any changes in license information. -->
         <checkDependencies>false</checkDependencies>
-
+        <dependency.list.directory>${project.build.directory}/dependencies</dependency.list.directory>
+        <ignoreLicenseErrors>false</ignoreLicenseErrors>
     </properties>
 
     <modules>
-
-        <!-- Guacamole web application -->
         <module>guacamole</module>
-
-        <!-- Guacamole Java API -->
         <module>guacamole-common</module>
-
-        <!-- Guacamole webapp extension API -->
         <module>guacamole-ext</module>
-
-        <!-- Guacamole JavaScript API -->
         <module>guacamole-common-js</module>
-
-        <!-- Authentication extensions -->
         <module>extensions</module>
-
-        <!-- Example web applications using the Guacamole APIs -->
         <module>doc/guacamole-example</module>
         <module>doc/guacamole-playback-example</module>
-
     </modules>
-
     <build>
         <plugins>
-
-            <!-- Verify format using Apache RAT -->
             <plugin>
                 <groupId>org.apache.rat</groupId>
                 <artifactId>apache-rat-plugin</artifactId>
-                <version>0.13</version>
+                <version>${apache-rat-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>validate-licenses</id>
@@ -125,32 +114,24 @@
                                 <exclude>**/templates/*.html</exclude>
                                 <exclude>src/licenses/**/*</exclude>
                                 <exclude>target/**/*</exclude>
+                                <exclude>javac.*.args</exclude>
                             </excludes>
                             <skip>${ignoreLicenseErrors}</skip>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>${build-helper-maven-plugin.version}</version>
                 <executions>
-
-                    <!-- Define a "rootlocation" property that can be used to
-                        reference the location of the main guacamole-client
-                        directory -->
                     <execution>
                         <id>define-project-root</id>
                         <goals>
                             <goal>rootlocation</goal>
                         </goals>
                     </execution>
-
-                    <!-- Define a "guacamole.build.identifier" property that
-                        can be used to uniquely identify the current build
-                        relative to previous builds -->
                     <execution>
                         <id>define-build-timestamp</id>
                         <configuration>
@@ -165,12 +146,10 @@
 
                 </executions>
             </plugin>
-
-            <!-- Automatically generate list of Maven runtime dependencies -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.1.2</version>
+                <version>${maven-dependency-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>list-maven-runtime-dependencies</id>
@@ -187,12 +166,10 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!-- Automatically verify build sanity -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.0.0-M3</version>
+                <version>${maven-enforcer-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>enforce</id>
@@ -208,40 +185,46 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
 
         <pluginManagement>
             <plugins>
-
-                <!-- Java code within guacamole-client is written to be
-                    compatible with Java 8 and should not produce ANY compiler
-                    warnings -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.1</version>
+                <plugin><groupId>com.github.buckelieg</groupId><artifactId>minify-maven-plugin</artifactId><version>${minify-maven-plugin.version}</version>
+                    <dependencies>
+                        <dependency><groupId>org.codehaus.plexus</groupId><artifactId>plexus-utils</artifactId><version>${plexus-utils.version}</version></dependency>
+                    </dependencies>
+                </plugin>
+                <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-assembly-plugin</artifactId><version>${maven-assembly-plugin.version}</version></plugin>
+                <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId><version>${maven-compiler-plugin.version}</version>
                     <configuration>
                         <source>17</source>
                         <target>17</target>
-                        <compilerArgs>
-                            <arg>-Xlint:all</arg>
-                        </compilerArgs>
+                        <compilerArgs><arg>-Xlint:all</arg></compilerArgs>
                         <failOnWarning>false</failOnWarning>
                         <fork>true</fork>
                     </configuration>
                 </plugin>
-
-                <!-- Provide "generate-license-files" execution for automatic
-                    generation of LICENSE and NOTICE files -->
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>exec-maven-plugin</artifactId>
-                    <version>3.0.0</version>
+                <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-javadoc-plugin</artifactId><version>${maven-javadoc-plugin.version}</version>
+                    <configuration>
+                        <detectOfflineLinks>false</detectOfflineLinks>
+                        <source>8</source>
+                    </configuration>
                     <executions>
                         <execution>
-                            <id>generate-license-files</id>
-                            <phase>none</phase>
+                            <id>attach-javadocs</id>
+                            <goals><goal>jar</goal></goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-resources-plugin</artifactId><version>${maven-resources-plugin.version}</version></plugin>
+                <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-source-plugin</artifactId><version>${maven-source-plugin.version}</version>
+                    <executions><execution><id>attach-sources</id><goals><goal>jar</goal></goals></execution></executions>
+                </plugin>
+                <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-surefire-plugin</artifactId><version>${maven-surefire-plugin.version}</version></plugin>
+                <plugin><groupId>org.codehaus.mojo</groupId><artifactId>exec-maven-plugin</artifactId><version>${exec-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>generate-license-files</id><phase>none</phase>
                             <configuration>
                                 <executable>${rootlocation}/doc/licenses/generate-license-files.sh</executable>
                                 <arguments>
@@ -252,282 +235,75 @@
                                     <IGNORE_LICENSE_ERRORS>${ignoreLicenseErrors}</IGNORE_LICENSE_ERRORS>
                                 </environmentVariables>
                             </configuration>
-                            <goals>
-                                <goal>exec</goal>
-                            </goals>
+                            <goals><goal>exec</goal></goals>
                         </execution>
                     </executions>
                 </plugin>
-
-                <!-- Use latest version of JavaScript/CSS minification plugin -->
                 <plugin>
-                    <groupId>com.github.buckelieg</groupId>
-                    <artifactId>minify-maven-plugin</artifactId>
-                    <version>2.0.1</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.codehaus.plexus</groupId>
-                            <artifactId>plexus-utils</artifactId>
-                            <version>3.5.1</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-
-                <!-- Explicitly use latest versions of core plugins -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-assembly-plugin</artifactId>
-                    <version>3.3.0</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.2.0</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.0.0-M5</version>
-                </plugin>
-
-                <!-- Provide default configurations for attaching JavaDoc and source -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.2.0</version>
+                    <groupId>org.apache.rat</groupId>
+                    <artifactId>apache-rat-plugin</artifactId>
+                    <version>${apache-rat-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>validate</id>
+                            <phase>validate</phase>
+                            <goals><goal>check</goal></goals>
+                        </execution>
+                    </executions>
                     <configuration>
-                        <detectOfflineLinks>false</detectOfflineLinks>
-                        <source>8</source>
+                        <skip>true</skip>
                     </configuration>
-                    <executions>
-                        <execution>
-                            <id>attach-javadocs</id>
-                            <goals>
-                                <goal>jar</goal>
-                            </goals>
-                        </execution>
-                    </executions>
                 </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-source-plugin</artifactId>
-                    <version>3.2.1</version>
-                    <executions>
-                        <execution>
-                            <id>attach-sources</id>
-                            <goals>
-                                <goal>jar</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-
             </plugins>
         </pluginManagement>
-
     </build>
 
     <dependencyManagement>
         <dependencies>
-
-            <!-- Guava utility library -->
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>${guava.version}</version>
+            <dependency><groupId>ch.qos.logback</groupId><artifactId>logback-classic</artifactId><version>${logback.version}</version></dependency>
+            <dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-annotations</artifactId><version>${jackson.version}</version></dependency>
+            <dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-core</artifactId><version>${jackson.version}</version></dependency>
+            <dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-databind</artifactId><version>${jackson-databind.version}</version></dependency>
+            <dependency><groupId>com.fasterxml.jackson.dataformat</groupId><artifactId>jackson-dataformat-yaml</artifactId><version>${jackson.version}</version></dependency>
+            <dependency><groupId>com.fasterxml.jackson.module</groupId><artifactId>jackson-module-jaxb-annotations</artifactId><version>${jackson.version}</version></dependency>
+            <dependency><groupId>com.github.ben-manes.caffeine</groupId><artifactId>caffeine</artifactId><version>${caffeine.version}</version></dependency>
+            <dependency><groupId>com.github.seancfoley</groupId><artifactId>ipaddress</artifactId><version>${ipaddress.version}</version></dependency>
+            <dependency><groupId>com.google.errorprone</groupId><artifactId>error_prone_annotations</artifactId><version>${error_prone_annotations.version}</version></dependency>
+            <dependency><groupId>com.google.guava</groupId><artifactId>guava</artifactId><version>${guava.version}</version></dependency>
+            <dependency><groupId>com.google.inject.extensions</groupId><artifactId>guice-assistedinject</artifactId><version>${guice.version}</version></dependency>
+            <dependency><groupId>com.google.inject.extensions</groupId><artifactId>guice-servlet</artifactId><version>${guice.version}</version></dependency>
+            <dependency><groupId>com.google.inject</groupId><artifactId>guice</artifactId><version>${guice.version}</version></dependency>
+            <dependency><groupId>jakarta.activation</groupId><artifactId>jakarta.activation-api</artifactId><version>${jakarta.activation-api.version}</version></dependency>
+            <dependency><groupId>jakarta.annotation</groupId><artifactId>jakarta.annotation-api</artifactId><version>${jakarta.annotation-api.version}</version></dependency>
+            <dependency><groupId>jakarta.inject</groupId><artifactId>jakarta.inject-api</artifactId><version>${jakarta.inject-api.version}</version></dependency>
+            <dependency><groupId>jakarta.servlet</groupId><artifactId>jakarta.servlet-api</artifactId><version>${jakarta.servlet-api.version}</version></dependency>
+            <dependency><groupId>jakarta.websocket</groupId><artifactId>jakarta.websocket-api</artifactId><version>${jakarta.websocket-api.version}</version></dependency>
+            <dependency><groupId>jakarta.ws.rs</groupId><artifactId>jakarta.ws.rs-api</artifactId><version>${jakarta.ws.rs-api.version}</version></dependency>
+            <dependency><groupId>jakarta.validation</groupId><artifactId>jakarta.validation-api</artifactId><version>${jakarta.validation-api.version}</version></dependency>
+            <dependency><groupId>junit</groupId><artifactId>junit</artifactId><version>${junit4.version}</version><scope>test</scope></dependency>
+            <dependency><groupId>org.apache.tomcat</groupId><artifactId>tomcat-catalina</artifactId><version>${tomcat.version}</version><scope>provided</scope></dependency>
+            <dependency><groupId>org.apache.tomcat</groupId><artifactId>tomcat-coyote</artifactId><version>${tomcat.version}</version><scope>provided</scope></dependency>
+            <dependency><groupId>org.apache.tomcat</groupId><artifactId>tomcat-websocket-client-api</artifactId><version>${tomcat.version}</version></dependency>
+            <dependency><groupId>org.eclipse.jetty.websocket</groupId><artifactId>websocket-api</artifactId><version>${websocket-api.version}</version><scope>provided</scope></dependency>
+            <dependency><groupId>org.eclipse.jetty.websocket</groupId><artifactId>websocket-servlet</artifactId><version>${websocket-api.version}</version><scope>provided</scope></dependency>
+            <dependency><groupId>org.eclipse.jetty</groupId><artifactId>jetty-websocket</artifactId><version>${jetty-websocket.version}</version><scope>provided</scope></dependency>
+            <dependency><groupId>org.glassfish.hk2</groupId><artifactId>guice-bridge</artifactId><version>${hk2.version}</version></dependency>
+            <dependency><groupId>org.glassfish.hk2.external</groupId><artifactId>aopalliance-repackaged</artifactId><version>${hk2.version}</version></dependency>
+            <dependency><groupId>org.glassfish.jersey.containers</groupId><artifactId>jersey-container-servlet-core</artifactId><version>${jersey.version}</version></dependency>
+            <dependency><groupId>org.glassfish.jersey.inject</groupId><artifactId>jersey-hk2</artifactId><version>${jersey.version}</version></dependency>
+            <dependency><groupId>org.glassfish.jersey.media</groupId><artifactId>jersey-media-json-jackson</artifactId><version>${jersey.version}</version>
+                <exclusions><exclusion><groupId>javax.xml.stream</groupId><artifactId>stax-api</artifactId></exclusion></exclusions>
             </dependency>
-
-            <!-- Guice dependency injection -->
-            <dependency>
-                <groupId>com.google.inject</groupId>
-                <artifactId>guice</artifactId>
-                <version>${guice.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.inject.extensions</groupId>
-                <artifactId>guice-assistedinject</artifactId>
-                <version>${guice.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.inject.extensions</groupId>
-                <artifactId>guice-servlet</artifactId>
-                <version>${guice.version}</version>
-            </dependency>
-
-            <!-- IPAddress (IP address matching library) -->
-            <dependency>
-                <groupId>com.github.seancfoley</groupId>
-                <artifactId>ipaddress</artifactId>
-                <version>${ipaddress.version}</version>
-            </dependency>
-
-            <!-- Jersey JAX-RS implementation -->
-            <dependency>
-                <groupId>org.glassfish.jersey.containers</groupId>
-                <artifactId>jersey-container-servlet-core</artifactId>
-                <version>${jersey.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.glassfish.jersey.inject</groupId>
-                <artifactId>jersey-hk2</artifactId>
-                <version>${jersey.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.glassfish.hk2</groupId>
-                <artifactId>guice-bridge</artifactId>
-                <version>${hk2.version}</version>
-            </dependency>
-
-            <!-- Jackson JSON mapper -->
-            <dependency>
-                <groupId>org.glassfish.jersey.media</groupId>
-                <artifactId>jersey-media-json-jackson</artifactId>
-                <version>${jersey.version}</version>
-
-                <!-- Exclude StAX API, which is part of Java 6 -->
-                <exclusions>
-                    <exclusion>
-                        <groupId>javax.xml.stream</groupId>
-                        <artifactId>stax-api</artifactId>
-                    </exclusion>
-                </exclusions>
-
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-annotations</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-core</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>${jackson-databind.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.dataformat</groupId>
-                <artifactId>jackson-dataformat-yaml</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.module</groupId>
-                <artifactId>jackson-module-jaxb-annotations</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-
-            <!-- Logging -->
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>jul-to-slf4j</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>${logback.version}</version>
-            </dependency>
-
-            <!-- JUnit v5 -->
-            <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-api</artifactId>
-                <version>${junit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-params</artifactId>
-                <version>${junit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-engine</artifactId>
-                <version>${junit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.annotation</groupId>
-                <artifactId>javax.annotation-api</artifactId>
-                <version>${javax.annotation-api.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>servlet-api</artifactId>
-                <version>${servlet-api.version}</version>
-                <scope>provided</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>javax.websocket</groupId>
-                <artifactId>javax.websocket-api</artifactId>
-                <version>${javax.websocket-api.version}</version>
-                <scope>provided</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-websocket</artifactId>
-                <version>${jetty-websocket.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.eclipse.jetty.websocket</groupId>
-                <artifactId>websocket-api</artifactId>
-                <version>${websocket-api.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.eclipse.jetty.websocket</groupId>
-                <artifactId>websocket-servlet</artifactId>
-                <version>${websocket-api.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.tomcat</groupId>
-                <artifactId>tomcat-catalina</artifactId>
-                <version>${tomcat-catalina.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.tomcat</groupId>
-                <artifactId>tomcat-coyote</artifactId>
-                <version>${tomcat-catalina.version}</version>
-                <scope>provided</scope>
-            </dependency>
-
-            <!-- JUnit v4 -->
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit4.version}</version>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>javax.annotation</groupId>
-                <artifactId>jsr250-api</artifactId>
-                <version>${jsr250-api.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>jakarta.activation</groupId>
-                <artifactId>jakarta.activation-api</artifactId>
-                <version>${jakarta.activation-api.version}</version>
-            </dependency>
+            <dependency><groupId>org.jetbrains</groupId><artifactId>annotations</artifactId><version>${annotations.version}</version></dependency>
+            <dependency><groupId>org.junit.jupiter</groupId><artifactId>junit-jupiter-api</artifactId><version>${junit.version}</version></dependency>
+            <dependency><groupId>org.junit.jupiter</groupId><artifactId>junit-jupiter-engine</artifactId><version>${junit.version}</version></dependency>
+            <dependency><groupId>org.junit.jupiter</groupId><artifactId>junit-jupiter-params</artifactId><version>${junit.version}</version></dependency>
+            <dependency><groupId>org.slf4j</groupId><artifactId>jul-to-slf4j</artifactId><version>${slf4j.version}</version></dependency>
+            <dependency><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId><version>${slf4j.version}</version></dependency>
         </dependencies>
     </dependencyManagement>
 
     <profiles>
-
-        <!-- Automatically build distribution archive if dist.xml assembly is present -->
         <profile>
             <id>build-dist-archive</id>
             <activation>
@@ -535,31 +311,22 @@
             </activation>
             <build>
                 <plugins>
-                    <plugin>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                        <version>3.3.0</version>
+                    <plugin><artifactId>maven-assembly-plugin</artifactId><version>${maven-assembly-plugin.version}</version>
                         <executions>
-                            <execution>
-                                <id>make-dist-archive</id>
-                                <phase>package</phase>
+                            <execution><id>make-dist-archive</id><phase>package</phase>
                                 <configuration>
                                     <appendAssemblyId>false</appendAssemblyId>
                                     <tarLongFileMode>posix</tarLongFileMode>
-                                    <descriptors>
-                                        <descriptor>src/main/assembly/dist.xml</descriptor>
+                                    <descriptors><descriptor>src/main/assembly/dist.xml</descriptor>
                                     </descriptors>
                                 </configuration>
-                                <goals>
-                                    <goal>single</goal>
-                                </goals>
+                                <goals><goal>single</goal></goals>
                             </execution>
                         </executions>
                     </plugin>
                 </plugins>
             </build>
         </profile>
-
-        <!-- Perform automated dependency checks if "checkDependencies" is set to "true" -->
         <profile>
             <id>check-dependencies</id>
             <activation>
@@ -570,59 +337,31 @@
             </activation>
             <build>
                 <plugins>
-
-                    <!-- Checks for availability of likely-compatibile updates to
-                        dependencies -->
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>versions-maven-plugin</artifactId>
-                        <version>2.16.0</version>
+                        <version>${versions-maven-plugin.version}</version>
                         <configuration>
                             <allowMajorUpdates>false</allowMajorUpdates>
                             <dependencyExcludes>*:*:*:*:*:provided,*:*:*:*:*:system</dependencyExcludes>
                             <outputFile>${project.build.directory}/dependency-update-report.txt</outputFile>
                             <ruleSet>
-                                <ignoreVersions>
-                                    <ignoreVersion>
-                                        <type>regex</type>
-                                        <version>(.+-SNAPSHOT|.+-(M|RC)\d+)</version>
-                                    </ignoreVersion>
-                                    <ignoreVersion>
-                                        <type>regex</type>
-                                        <version>.+-(alpha|Alpha|beta|Beta)[0-9]*\b.*?</version>
-                                    </ignoreVersion>
-                                </ignoreVersions>
-                                <rules>
-                                    <rule>
-                                        <groupId>ch.qos.logback</groupId>
-                                        <artifactId>logback-classic</artifactId>
-                                        <ignoreVersions>
-                                            <ignoreVersion>
-                                                <type>regex</type>
-                                                <version>1\.[45]\..+</version>
-                                            </ignoreVersion>
-                                        </ignoreVersions>
-                                    </rule>
-                                </rules>
+                                <ignoreVersions><ignoreVersion><type>regex</type><version>(.+-SNAPSHOT|.+-(M|RC)\d+)</version></ignoreVersion><ignoreVersion><type>regex</type><version>.+-(alpha|Alpha|beta|Beta)[0-9]*\b.*?</version></ignoreVersion></ignoreVersions>
+                                <rules><rule><groupId>ch.qos.logback</groupId><artifactId>logback-classic</artifactId><ignoreVersions><ignoreVersion><type>regex</type><version>1\.[45]\..+</version></ignoreVersion></ignoreVersions></rule></rules>
                             </ruleSet>
                         </configuration>
                         <executions>
                             <execution>
                                 <id>check-dependency-updates</id>
                                 <phase>validate</phase>
-                                <goals>
-                                    <goal>display-dependency-updates</goal>
-                                </goals>
+                                <goals><goal>display-dependency-updates</goal></goals>
                             </execution>
                         </executions>
                     </plugin>
-
-                    <!-- Checks for possible known CVEs against dependencies
-                        NOTE: This WILL produce false positives!!! -->
                     <plugin>
                         <groupId>org.owasp</groupId>
                         <artifactId>dependency-check-maven</artifactId>
-                        <version>8.3.1</version>
+                        <version>${dependency-check-maven.version}</version>
                         <configuration>
                             <skipProvidedScope>true</skipProvidedScope>
                             <skipSystemScope>true</skipSystemScope>
@@ -633,17 +372,12 @@
                             <execution>
                                 <id>check-dependency-updates</id>
                                 <phase>validate</phase>
-                                <goals>
-                                    <goal>check</goal>
-                                </goals>
+                                <goals><goal>check</goal></goals>
                             </execution>
                         </executions>
                     </plugin>
-
                 </plugins>
             </build>
         </profile>
-
     </profiles>
-
 </project>

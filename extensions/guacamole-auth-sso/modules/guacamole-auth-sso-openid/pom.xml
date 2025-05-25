@@ -21,26 +21,23 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                         http://maven.apache.org/maven-v4_0_0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.guacamole</groupId>
     <artifactId>guacamole-auth-sso-openid</artifactId>
     <packaging>jar</packaging>
+    <properties>
+        <jose4j.version>0.9.6</jose4j.version>
+    </properties>
     <version>1.6.0</version>
     <name>guacamole-auth-sso-openid</name>
     <url>http://guacamole.apache.org/</url>
-
     <parent>
         <groupId>org.apache.guacamole</groupId>
         <artifactId>guacamole-auth-sso</artifactId>
         <version>1.6.0</version>
-        <relativePath>../../</relativePath>
     </parent>
-
     <build>
         <plugins>
-
-            <!-- JS/CSS Minification Plugin -->
             <plugin>
                 <groupId>com.github.buckelieg</groupId>
                 <artifactId>minify-maven-plugin</artifactId>
@@ -49,84 +46,59 @@
                         <id>default-cli</id>
                         <configuration>
                             <charset>UTF-8</charset>
-
                             <webappSourceDir>${basedir}/src/main/resources</webappSourceDir>
                             <webappTargetDir>${project.build.directory}/classes</webappTargetDir>
-
                             <jsSourceDir>/</jsSourceDir>
                             <jsTargetDir>/</jsTargetDir>
                             <jsFinalFile>openid.js</jsFinalFile>
-
                             <jsSourceFiles>
                                 <jsSourceFile>license.txt</jsSourceFile>
                             </jsSourceFiles>
-
                             <jsSourceIncludes>
                                 <jsSourceInclude>**/*.js</jsSourceInclude>
                             </jsSourceIncludes>
-
-                            <!-- Do not minify and include tests -->
                             <jsSourceExcludes>
                                 <jsSourceExclude>**/*.test.js</jsSourceExclude>
                             </jsSourceExcludes>
                             <jsEngine>CLOSURE</jsEngine>
-
-                            <!-- Disable warnings for JSDoc annotations -->
                             <closureWarningLevels>
                                 <misplacedTypeAnnotation>OFF</misplacedTypeAnnotation>
                                 <nonStandardJsDocs>OFF</nonStandardJsDocs>
                             </closureWarningLevels>
-
                         </configuration>
-                        <goals>
-                            <goal>minify</goal>
-                        </goals>
+                        <goals><goal>minify</goal></goals>
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
-
     <dependencies>
-
-        <!-- Guacamole Extension API -->
         <dependency>
             <groupId>org.apache.guacamole</groupId>
             <artifactId>guacamole-ext</artifactId>
         </dependency>
-
-        <!-- Core SSO support -->
         <dependency>
             <groupId>org.apache.guacamole</groupId>
             <artifactId>guacamole-auth-sso-base</artifactId>
         </dependency>
-
-        <!-- Java implementation of JOSE (jose.4.j) -->
         <dependency>
             <groupId>org.bitbucket.b_c</groupId>
             <artifactId>jose4j</artifactId>
-            <version>0.9.6</version>
+            <version>${jose4j.version}</version>
         </dependency>
-
-        <!-- Guice -->
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
         </dependency>
-
-        <!-- Java servlet API -->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>${jakarta.servlet-api.version}</version>
         </dependency>
-
-        <!-- JAX-RS Annotations -->
         <dependency>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>jsr311-api</artifactId>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-api</artifactId>
+            <version>${jakarta.ws.rs-api.version}</version>
         </dependency>
-
     </dependencies>
-
 </project>

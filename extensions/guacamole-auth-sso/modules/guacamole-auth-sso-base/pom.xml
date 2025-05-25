@@ -28,34 +28,25 @@
     <packaging>jar</packaging>
     <name>guacamole-auth-sso-base</name>
     <url>http://guacamole.apache.org/</url>
-
     <parent>
         <groupId>org.apache.guacamole</groupId>
         <artifactId>guacamole-auth-sso</artifactId>
         <version>1.6.0</version>
-        <relativePath>../../</relativePath>
     </parent>
-
     <dependencies>
-
-        <!-- Guacamole Extension API -->
         <dependency>
             <groupId>org.apache.guacamole</groupId>
             <artifactId>guacamole-ext</artifactId>
+            <version>1.6.0</version>
         </dependency>
-
-        <!-- Guice -->
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
         </dependency>
-
-        <!-- JAX-RS Annotations -->
         <dependency>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>jsr311-api</artifactId>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-api</artifactId>
+            <version>${jakarta.ws.rs-api.version}</version>
         </dependency>
-
     </dependencies>
-
 </project>

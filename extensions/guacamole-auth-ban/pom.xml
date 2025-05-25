@@ -21,7 +21,6 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                         http://maven.apache.org/maven-v4_0_0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.guacamole</groupId>
     <artifactId>guacamole-auth-ban</artifactId>
@@ -29,33 +28,23 @@
     <version>1.6.0</version>
     <name>guacamole-auth-ban</name>
     <url>http://guacamole.apache.org/</url>
-
     <parent>
         <groupId>org.apache.guacamole</groupId>
         <artifactId>extensions</artifactId>
         <version>1.6.0</version>
-        <relativePath>../</relativePath>
+
     </parent>
-
     <dependencies>
-
-        <!-- Java servlet API -->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
-
-        <!-- Guacamole Extension API -->
         <dependency>
             <groupId>org.apache.guacamole</groupId>
             <artifactId>guacamole-ext</artifactId>
             <version>1.6.0</version>
             <scope>provided</scope>
-
-            <!-- Exclude transitive dependencies that will be overridden by
-                newer versions required by Caffeine -->
             <exclusions>
                 <exclusion>
                     <groupId>org.checkerframework</groupId>
@@ -66,16 +55,10 @@
                     <artifactId>error_prone_annotations</artifactId>
                 </exclusion>
             </exclusions>
-
         </dependency>
-
-        <!-- Guava Base Libraries -->
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
-            <version>2.9.3</version>
         </dependency>
-
     </dependencies>
-
 </project>

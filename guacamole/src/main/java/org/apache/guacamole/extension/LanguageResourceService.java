@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 import org.apache.guacamole.GuacamoleException;
 import org.apache.guacamole.environment.Environment;
 import org.apache.guacamole.properties.StringSetProperty;

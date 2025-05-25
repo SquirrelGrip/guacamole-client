@@ -24,31 +24,9 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.keepersecurity.secretsManager.core.KeeperRecord;
 import com.keepersecurity.secretsManager.core.SecretsManagerOptions;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.Future;
-
-import javax.annotation.Nonnull;
-
+import jakarta.validation.constraints.NotNull;
 import org.apache.guacamole.GuacamoleException;
-import org.apache.guacamole.net.auth.Attributes;
-import org.apache.guacamole.net.auth.Connectable;
-import org.apache.guacamole.net.auth.Connection;
-import org.apache.guacamole.net.auth.ConnectionGroup;
-import org.apache.guacamole.net.auth.Directory;
-import org.apache.guacamole.net.auth.User;
-import org.apache.guacamole.net.auth.UserContext;
+import org.apache.guacamole.net.auth.*;
 import org.apache.guacamole.protocol.GuacamoleConfiguration;
 import org.apache.guacamole.token.TokenFilter;
 import org.apache.guacamole.vault.ksm.GuacamoleExceptionSupplier;
@@ -59,6 +37,17 @@ import org.apache.guacamole.vault.secret.VaultSecretService;
 import org.apache.guacamole.vault.secret.WindowsUsername;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.Future;
 
 /**
  * Service which retrieves secrets from Keeper Secrets Manager.
@@ -114,7 +103,7 @@ public class KsmSecretService implements VaultSecretService {
      * @throws GuacamoleException
      *     If an error occurs while creating the KSM client.
      */
-    private KsmClient getClient(@Nonnull String ksmConfig)
+    private KsmClient getClient(@NotNull String ksmConfig)
             throws GuacamoleException {
 
         // If a client already exists for the provided config, use it
@@ -274,7 +263,7 @@ public class KsmSecretService implements VaultSecretService {
      *     no KSM config is found in the connection group tree, and the value is also not
      *     defined in the config file.
      */
-    @Nonnull
+    @NotNull
     private String getConnectionGroupKsmConfig(
             UserContext userContext, Connectable connectable) throws GuacamoleException {
 

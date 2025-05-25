@@ -44,8 +44,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nullable;
-
+import jakarta.validation.constraints.Null;
 import org.apache.guacamole.GuacamoleException;
 import org.apache.guacamole.vault.ksm.conf.KsmConfigurationService;
 import org.apache.guacamole.vault.secret.WindowsUsername;
@@ -635,7 +634,7 @@ public class KsmClient {
      */
     public Future<String> getSecret(
             String notation,
-            @Nullable GuacamoleExceptionSupplier<Future<String>> fallbackFunction)
+            @Null GuacamoleExceptionSupplier<Future<String>> fallbackFunction)
             throws GuacamoleException {
         validateCache();
         cacheLock.readLock().lock();

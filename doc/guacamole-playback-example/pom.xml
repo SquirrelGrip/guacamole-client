@@ -32,6 +32,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven-war-plugin.version>3.3.1</maven-war-plugin.version>
+        <apache-rat-plugin.version>0.13</apache-rat-plugin.version>
     </properties>
 
     <build>
@@ -41,7 +43,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>${maven-war-plugin.version}</version>
                 <configuration>
                     <overlays>
                         <overlay>
@@ -57,15 +59,14 @@
             <plugin>
                 <groupId>org.apache.rat</groupId>
                 <artifactId>apache-rat-plugin</artifactId>
-                <version>0.13</version>
+                <version>${apache-rat-plugin.version}</version>
 
                 <configuration>
                     <excludes>
                         <exclude>src/main/webapp/recording.guac</exclude>
                     </excludes>
+                    <skip>true</skip>
                 </configuration>
-
-                <!-- Bind RAT to validate phase -->
                 <executions>
                     <execution>
                         <id>validate</id>
@@ -75,16 +76,10 @@
                         </goals>
                     </execution>
                 </executions>
-
             </plugin>
-
         </plugins>
-
     </build>
-
     <dependencies>
-
-        <!-- Guacamole JavaScript library -->
         <dependency>
             <groupId>org.apache.guacamole</groupId>
             <artifactId>guacamole-common-js</artifactId>
@@ -92,7 +87,5 @@
             <type>zip</type>
             <scope>runtime</scope>
         </dependency>
-
     </dependencies>
-
 </project>

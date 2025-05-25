@@ -19,10 +19,10 @@
 
 package org.apache.guacamole.vault.ksm.secret;
 
-import java.util.Objects;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import java.util.Objects;
 
 /**
  * A class intended for use as a key in KSM user record client cache. This
@@ -56,7 +56,7 @@ class UserLogin {
      * @param domain
      *    The domain to create the UserLogin instance with. This can be null.
      */
-    UserLogin(@Nonnull String username, @Nullable String domain) {
+    UserLogin(@NotNull String username, @Null String domain) {
         this.username = username;
         this.domain = domain;
     }

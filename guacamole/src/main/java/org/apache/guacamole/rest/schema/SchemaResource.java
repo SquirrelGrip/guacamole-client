@@ -21,11 +21,11 @@ package org.apache.guacamole.rest.schema;
 
 import java.util.Collection;
 import java.util.Map;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 import org.apache.guacamole.GuacamoleException;
 import org.apache.guacamole.environment.Environment;
 import org.apache.guacamole.environment.LocalEnvironment;

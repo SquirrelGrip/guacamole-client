@@ -21,7 +21,7 @@ package org.apache.guacamole.tunnel.websocket;
 
 import java.util.List;
 import java.util.Map;
-import javax.websocket.server.HandshakeRequest;
+import jakarta.websocket.server.HandshakeRequest;
 import org.apache.guacamole.tunnel.TunnelRequest;
 
 /**

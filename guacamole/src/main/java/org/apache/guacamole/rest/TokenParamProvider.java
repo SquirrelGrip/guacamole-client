@@ -20,8 +20,8 @@
 package org.apache.guacamole.rest;
 
 import java.util.function.Function;
-import javax.inject.Inject;
-import javax.ws.rs.ext.Provider;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.ext.Provider;
 import org.apache.guacamole.rest.auth.AuthenticationService;
 import org.glassfish.jersey.server.ContainerRequest;
 import org.glassfish.jersey.server.model.Parameter;

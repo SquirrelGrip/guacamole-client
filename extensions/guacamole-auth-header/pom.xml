@@ -29,39 +29,44 @@
     <version>1.6.0</version>
     <name>guacamole-auth-header</name>
     <url>http://guacamole.apache.org/</url>
-
     <parent>
         <groupId>org.apache.guacamole</groupId>
         <artifactId>extensions</artifactId>
         <version>1.6.0</version>
-        <relativePath>../</relativePath>
     </parent>
-
     <dependencies>
-
-        <!-- Guacamole Extension API -->
+    <!-- Add this dependency -->
+    <dependency>
+        <groupId>jakarta.websocket</groupId>
+        <artifactId>jakarta.websocket-api</artifactId>
+        <version>2.1.1</version>
+        <scope>provided</scope>
+    </dependency>
+    
+    <!-- Add Tomcat WebSocket implementation if needed -->
+    <dependency>
+        <groupId>org.apache.tomcat</groupId>
+        <artifactId>tomcat-websocket</artifactId>
+        <version>10.1.19</version>
+        <scope>provided</scope>
+    </dependency>
+    
+    <!-- Your existing dependencies -->
         <dependency>
             <groupId>org.apache.guacamole</groupId>
             <artifactId>guacamole-ext</artifactId>
             <version>1.6.0</version>
             <scope>provided</scope>
         </dependency>
-
-        <!-- Guice -->
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
         </dependency>
-
-        <!-- Java servlet API -->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
-
-
-    </dependencies>
-
+    <!-- ... other dependencies ... -->
+</dependencies>
 </project>

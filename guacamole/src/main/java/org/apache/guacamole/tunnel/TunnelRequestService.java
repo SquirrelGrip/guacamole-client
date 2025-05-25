@@ -21,8 +21,8 @@ package org.apache.guacamole.tunnel;
 
 import java.util.List;
 import java.util.Map;
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import org.apache.guacamole.GuacamoleException;
 import org.apache.guacamole.GuacamoleResourceNotFoundException;
 import org.apache.guacamole.GuacamoleSession;

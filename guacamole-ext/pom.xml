@@ -34,7 +34,7 @@
         <groupId>org.apache.guacamole</groupId>
         <artifactId>guacamole-client</artifactId>
         <version>1.6.0</version>
-        <relativePath>../</relativePath>
+
     </parent>
 
     <description>
@@ -59,63 +59,18 @@
 
     <build>
         <plugins>
-
-            <!-- Attach source and JavaDoc .jars -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-            </plugin>
-
+            <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-source-plugin</artifactId></plugin>
+            <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-javadoc-plugin</artifactId></plugin>
         </plugins>
     </build>
 
     <dependencies>
-
-        <!-- Java servlet API -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- Guacamole Java API -->
-        <dependency>
-            <groupId>org.apache.guacamole</groupId>
-            <artifactId>guacamole-common</artifactId>
-            <version>1.6.0</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <!-- JUnit -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Guava Base Libraries -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
-
-        <!-- Jackson for JSON support -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
-
-        <!-- Library for unified IPv4/6 parsing and validation -->
-        <dependency>
-            <groupId>com.github.seancfoley</groupId>
-            <artifactId>ipaddress</artifactId>
-        </dependency>
-
+        <dependency><groupId>jakarta.servlet</groupId><artifactId>jakarta.servlet-api</artifactId><scope>provided</scope></dependency>
+        <dependency><groupId>junit</groupId><artifactId>junit</artifactId><scope>test</scope></dependency>
+        <dependency><groupId>com.google.guava</groupId><artifactId>guava</artifactId></dependency>
+        <dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-databind</artifactId></dependency>
+        <dependency><groupId>com.github.seancfoley</groupId><artifactId>ipaddress</artifactId></dependency>
+        <dependency><groupId>org.apache.guacamole</groupId><artifactId>guacamole-common</artifactId><version>1.6.0</version><scope>compile</scope></dependency>
     </dependencies>
 
 </project>

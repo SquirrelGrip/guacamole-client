@@ -26,6 +26,13 @@
     <groupId>org.apache.guacamole</groupId>
     <artifactId>guacamole-auth-radius</artifactId>
     <packaging>jar</packaging>
+    <properties>
+        <jradius-core.version>1.1.5</jradius-core.version>
+        <jradius-dictionary.version>1.1.5</jradius-dictionary.version>
+        <commons-collections.version>3.2.2</commons-collections.version>
+        <commons-logging.version>1.2</commons-logging.version>
+        <jradius-extended.version>1.1.5</jradius-extended.version>
+    </properties>
     <version>1.6.0</version>
     <name>guacamole-auth-radius</name>
     <url>http://guacamole.apache.org/</url>
@@ -34,7 +41,7 @@
         <groupId>org.apache.guacamole</groupId>
         <artifactId>extensions</artifactId>
         <version>1.6.0</version>
-        <relativePath>../</relativePath>
+
     </parent>
 
     <build>
@@ -124,29 +131,20 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
         </dependency>
-
-        <!-- Guice -->
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
         </dependency>
-
-        <!-- Java servlet API -->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
-
-        <!-- JRadius Core Library -->
         <dependency>
             <groupId>net.jradius</groupId>
             <artifactId>jradius-core</artifactId>
-            <version>1.1.5</version>
+            <version>${jradius-core.version}</version>
             <exclusions>
-
-                <!-- Force consistent versions of Apache Commons libraries (see below) -->
                 <exclusion>
                     <groupId>commons-logging</groupId>
                     <artifactId>commons-logging</artifactId>
@@ -155,8 +153,6 @@
                     <groupId>commons-collections</groupId>
                     <artifactId>commons-collections</artifactId>
                 </exclusion>
-
-                <!-- Rely on Guacamole's existing use of logback rather than log4j -->
                 <exclusion>
                     <groupId>org.slf4j</groupId>
                     <artifactId>slf4j-log4j12</artifactId>
@@ -165,37 +161,27 @@
                     <groupId>log4j</groupId>
                     <artifactId>log4j</artifactId>
                 </exclusion>
-
             </exclusions>
         </dependency>
-
-        <!-- JRadius Dictionary, for accessing packet attributes -->
         <dependency>
             <groupId>net.jradius</groupId>
             <artifactId>jradius-dictionary</artifactId>
-            <version>1.1.5</version>
+            <version>${jradius-dictionary.version}</version>
         </dependency>
-
-        <!-- JRadius Extended, which inlcudes the SSL/TLS protocols -->
         <dependency>
             <groupId>net.jradius</groupId>
             <artifactId>jradius-extended</artifactId>
-            <version>1.1.5</version>
+            <version>${jradius-extended.version}</version>
         </dependency>
-
-        <!-- Force single, specific versions of Apache Commons libraries
-            (multiple dependencies reference multiple versions of these). -->
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
-            <version>1.2</version>
+            <version>${commons-logging.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
-            <version>3.2.2</version>
+            <version>${commons-collections.version}</version>
         </dependency>
-
     </dependencies>
-
 </project>

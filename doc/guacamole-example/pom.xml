@@ -21,27 +21,23 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                         http://maven.apache.org/maven-v4_0_0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.apache.guacamole</groupId>
+    <parent>
+        <groupId>org.apache.guacamole</groupId>
+        <artifactId>guacamole-client</artifactId>
+        <version>1.6.0</version>
+        <relativePath>../../</relativePath>
+    </parent>
     <artifactId>guacamole-example</artifactId>
     <packaging>war</packaging>
-    <version>1.6.0</version>
     <name>guacamole-example</name>
     <url>http://guacamole.apache.org/</url>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
     <build>
         <plugins>
-
-            <!-- Written for Java 1.8 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <source>17</source>
                     <target>17</target>
@@ -52,12 +48,10 @@
                     <fork>true</fork>
                 </configuration>
             </plugin>
-
-            <!-- Overlay guacamole-common-js (zip) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>${maven-war-plugin.version}</version>
                 <configuration>
                     <overlays>
                         <overlay>
@@ -68,49 +62,25 @@
                     </overlays>
                 </configuration>
             </plugin>
-
-            <!-- Verify format using Apache RAT -->
             <plugin>
                 <groupId>org.apache.rat</groupId>
                 <artifactId>apache-rat-plugin</artifactId>
-                <version>0.13</version>
-
-                <!-- Bind RAT to validate phase -->
-                <executions>
-                    <execution>
-                        <id>validate</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-
+                <version>${apache-rat-plugin.version}</version>
             </plugin>
-
         </plugins>
-
     </build>
-
     <dependencies>
-
-        <!-- Servlet API -->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
-
-        <!-- Main Guacamole library -->
         <dependency>
             <groupId>org.apache.guacamole</groupId>
             <artifactId>guacamole-common</artifactId>
             <version>1.6.0</version>
             <scope>compile</scope>
         </dependency>
-
-        <!-- Guacamole JavaScript library -->
         <dependency>
             <groupId>org.apache.guacamole</groupId>
             <artifactId>guacamole-common-js</artifactId>
@@ -118,14 +88,10 @@
             <type>zip</type>
             <scope>runtime</scope>
         </dependency>
-
-	<dependency>
-		<groupId>org.slf4j</groupId>
-		<artifactId>slf4j-simple</artifactId>
-		<version>2.0.13</version>
-	</dependency>
-
-
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
     </dependencies>
-
 </project>

@@ -21,7 +21,7 @@ package org.apache.guacamole.rest.auth;
 
 import java.util.Iterator;
 import java.util.List;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.apache.guacamole.net.auth.AuthenticatedUser;
 import org.apache.guacamole.net.auth.AuthenticationProvider;

@@ -29,7 +29,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URI;
-import javax.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.UriBuilder;
 import org.apache.guacamole.GuacamoleException;
 import org.apache.guacamole.auth.totp.user.UserTOTPKey;
 import org.apache.guacamole.auth.totp.conf.ConfigurationService;

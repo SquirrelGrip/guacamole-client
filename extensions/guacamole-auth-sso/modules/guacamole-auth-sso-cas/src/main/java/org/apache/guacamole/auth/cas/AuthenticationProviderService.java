@@ -23,7 +23,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.net.URI;
 import java.util.Arrays;
-import javax.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.UriBuilder;
 import org.apache.guacamole.form.Field;
 import org.apache.guacamole.GuacamoleException;
 import org.apache.guacamole.net.auth.Credentials;

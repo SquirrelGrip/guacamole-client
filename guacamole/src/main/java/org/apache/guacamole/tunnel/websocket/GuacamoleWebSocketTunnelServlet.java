@@ -17,11 +17,11 @@
  * under the License.
  */
 
-package org.apache.guacamole.tunnel.websocket.tomcat8;
+package org.apache.guacamole.tunnel.websocket;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.websocket.*;
-import javax.websocket.server.ServerEndpoint;
+import jakarta.websocket.*;
+import jakarta.websocket.server.ServerEndpoint;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.guacamole.GuacamoleException;
 import org.apache.guacamole.io.GuacamoleReader;
 import org.apache.guacamole.io.GuacamoleWriter;
@@ -32,11 +32,10 @@ import org.apache.guacamole.tunnel.TunnelRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@ServerEndpoint("/websocket-tunnel")
+@ServerEndpoint(value = "/websocket-tunnel")
 public abstract class GuacamoleWebSocketTunnelServlet {
 
     private static final Logger logger = LoggerFactory.getLogger(GuacamoleWebSocketTunnelServlet.class);
-
     private static final int BUFFER_SIZE = 8192;
 
     private Session session;
@@ -47,21 +46,24 @@ public abstract class GuacamoleWebSocketTunnelServlet {
         this.session = session;
 
         try {
+            // Get HTTP request from endpoint config
             HttpServletRequest request = (HttpServletRequest) config.getUserProperties().get("HttpServletRequest");
             TunnelRequest tunnelRequest = new HTTPTunnelRequest(request);
-            tunnel = doConnect(tunnelRequest);
 
+            // Create tunnel
+            tunnel = doConnect(tunnelRequest);
             if (tunnel == null) {
                 closeConnection(session, GuacamoleStatus.RESOURCE_NOT_FOUND);
                 return;
             }
 
-            // Begin reading from tunnel
+            // Start reading from tunnel
             GuacamoleReader reader = tunnel.acquireReader();
             new ReadThread(reader, session).start();
 
         } catch (GuacamoleException e) {
             logger.error("Error connecting WebSocket tunnel: {}", e.getMessage());
+            logger.debug("Error connecting WebSocket tunnel.", e);
             closeConnection(session, e.getStatus());
         }
     }
@@ -71,6 +73,7 @@ public abstract class GuacamoleWebSocketTunnelServlet {
         try {
             GuacamoleWriter writer = tunnel.acquireWriter();
             writer.write(message.toCharArray());
+            tunnel.releaseWriter();
         } catch (GuacamoleException e) {
             logger.debug("WebSocket tunnel write failed.", e);
             closeConnection(session, e.getStatus());
@@ -96,8 +99,10 @@ public abstract class GuacamoleWebSocketTunnelServlet {
 
     private void closeConnection(Session session, GuacamoleStatus status) {
         try {
-            session.close(new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE,
-                    Integer.toString(status.getGuacamoleStatusCode())));
+            session.close(new CloseReason(
+                    CloseReason.CloseCodes.NORMAL_CLOSURE,
+                    Integer.toString(status.getGuacamoleStatusCode())
+            ));
         } catch (Exception e) {
             logger.debug("Unable to close WebSocket connection.", e);
         }
@@ -119,11 +124,15 @@ public abstract class GuacamoleWebSocketTunnelServlet {
             try {
                 char[] buffer;
                 while ((buffer = reader.read()) != null) {
-                    session.getBasicRemote().sendText(new String(buffer));
+                    if (session.isOpen()) {
+                        session.getBasicRemote().sendText(new String(buffer));
+                    }
                 }
             } catch (Exception e) {
                 logger.debug("WebSocket tunnel read failed.", e);
                 closeConnection(session, GuacamoleStatus.SERVER_ERROR);
+            } finally {
+                tunnel.releaseReader();
             }
         }
     }

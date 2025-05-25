@@ -21,7 +21,6 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                         http://maven.apache.org/maven-v4_0_0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.guacamole</groupId>
     <artifactId>extensions</artifactId>
@@ -29,17 +28,12 @@
     <version>1.6.0</version>
     <name>extensions</name>
     <url>http://guacamole.apache.org/</url>
-
     <parent>
         <groupId>org.apache.guacamole</groupId>
         <artifactId>guacamole-client</artifactId>
         <version>1.6.0</version>
-        <relativePath>../</relativePath>
     </parent>
-
     <modules>
-
-        <!-- Authentication extensions -->
         <module>guacamole-auth-ban</module>
         <module>guacamole-auth-duo</module>
         <module>guacamole-auth-header</module>
@@ -50,31 +44,21 @@
         <module>guacamole-auth-restrict</module>
         <module>guacamole-auth-sso</module>
         <module>guacamole-auth-totp</module>
-
-        <!-- Additional features -->
         <module>guacamole-history-recording-storage</module>
         <module>guacamole-vault</module>
-
-        <!-- Utility extensions -->
         <module>guacamole-display-statistics</module>
-
     </modules>
-
     <build>
         <plugins>
-
-            <!-- Copy dependencies prior to packaging -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.1.2</version>
+                <version>${maven-dependency-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>copy-runtime-dependencies</id>
                         <phase>prepare-package</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
+                        <goals><goal>copy-dependencies</goal></goals>
                         <configuration>
                             <includeScope>runtime</includeScope>
                             <outputDirectory>${project.build.directory}/classes</outputDirectory>
@@ -82,8 +66,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!-- Automatically generate LICENSE and NOTICE -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -94,9 +76,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!-- Verify that SLF4J is *NEVER* bundled within extensions (it
-                will conflict with the version bundled with the webapp) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
@@ -113,37 +92,25 @@
                                 </bannedDependencies>
                             </rules>
                         </configuration>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
+                        <goals><goal>enforce</goal></goals>
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
-
     <dependencies>
-
-        <!-- SLF4J is always available via the webapp -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <scope>provided</scope>
         </dependency>
-        
     </dependencies>
-
     <profiles>
-
-        <!-- Build extensions with LGPL-licensed dependencies only if explicitly requested -->
         <profile>
             <id>lgpl-extensions</id>
             <modules>
                 <module>guacamole-auth-radius</module>
             </modules>
         </profile>
-
     </profiles>
-
 </project>

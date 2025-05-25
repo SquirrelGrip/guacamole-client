@@ -21,42 +21,29 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                         http://maven.apache.org/maven-v4_0_0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.guacamole</groupId>
     <artifactId>guacamole-vault-dist</artifactId>
     <packaging>pom</packaging>
     <name>guacamole-vault-dist</name>
     <url>http://guacamole.apache.org/</url>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
     <parent>
         <groupId>org.apache.guacamole</groupId>
         <artifactId>guacamole-vault</artifactId>
         <version>1.6.0</version>
-        <relativePath>../../</relativePath>
+
     </parent>
-
     <dependencies>
-
-        <!-- Keeper Secrets Manager Extension -->
         <dependency>
             <groupId>org.apache.guacamole</groupId>
             <artifactId>guacamole-vault-ksm</artifactId>
             <version>1.6.0</version>
         </dependency>
-
    </dependencies>
-
     <build>
-
-        <!-- Dist .tar.gz for guacamole-vault should be named after the parent
-            guacamole-vault project, not after guacamole-vault-dist -->
         <finalName>${project.parent.artifactId}-${project.parent.version}</finalName>
-
     </build>
-
 </project>

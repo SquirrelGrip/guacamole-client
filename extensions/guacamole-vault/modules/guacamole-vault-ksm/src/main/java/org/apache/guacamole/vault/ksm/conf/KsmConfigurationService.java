@@ -22,8 +22,7 @@ package org.apache.guacamole.vault.ksm.conf;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-import javax.annotation.Nonnull;
-
+import jakarta.validation.constraints.NotNull;
 import org.apache.guacamole.GuacamoleException;
 import org.apache.guacamole.GuacamoleServerException;
 import org.apache.guacamole.environment.Environment;
@@ -215,7 +214,7 @@ public class KsmConfigurationService extends VaultConfigurationService {
      *     If the value specified within guacamole.properties cannot be
      *     parsed or does not exist.
      */
-    @Nonnull
+    @NotNull
     @SuppressWarnings("null")
     public String getKsmConfig() throws GuacamoleException {
 
@@ -266,8 +265,8 @@ public class KsmConfigurationService extends VaultConfigurationService {
      * @throws GuacamoleException
      *     If an invalid ksmConfig parameter is provided.
      */
-    @Nonnull
-    public SecretsManagerOptions getSecretsManagerOptions(@Nonnull String ksmConfig) throws GuacamoleException {
+    @NotNull
+    public SecretsManagerOptions getSecretsManagerOptions(@NotNull String ksmConfig) throws GuacamoleException {
 
         return new SecretsManagerOptions(
                 parseKsmConfig(ksmConfig), null, getAllowUnverifiedCertificate());

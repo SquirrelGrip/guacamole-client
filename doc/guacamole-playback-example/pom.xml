@@ -25,16 +25,22 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.guacamole</groupId>
     <artifactId>guacamole-playback-example</artifactId>
+    <parent>
+        <groupId>org.apache.guacamole</groupId>
+        <artifactId>guacamole-client</artifactId>
+        <version>1.6.0</version>
+        <relativePath>../../</relativePath>
+    </parent>
     <packaging>war</packaging>
     <version>1.6.0</version>
     <name>guacamole-playback-example</name>
     <url>http://guacamole.apache.org/</url>
     <build>
-        <plugins>
-            <plugin>
+         <plugins>
+           <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>${maven-war-plugin.version}</version>
                 <configuration>
                     <overlays>
                         <overlay>
@@ -48,7 +54,7 @@
             <plugin>
                 <groupId>org.apache.rat</groupId>
                 <artifactId>apache-rat-plugin</artifactId>
-                <version>0.13</version>
+                <version>${apache-rat-plugin.version}</version>
                 <configuration>
                     <excludes>
                         <exclude>src/main/webapp/recording.guac</exclude>

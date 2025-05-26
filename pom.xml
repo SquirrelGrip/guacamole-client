@@ -33,19 +33,19 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <frontend-maven-plugin.version>1.11.3</frontend-maven-plugin.version>
+        <frontend-maven-plugin.version>1.15.1</frontend-maven-plugin.version>
         <frontend-maven-plugin.nodeVersion>v18.18.0</frontend-maven-plugin.nodeVersion>
         <frontend-maven-plugin.npmVersion>9.8.1</frontend-maven-plugin.npmVersion>
 
         <angular-maven-plugin.version>0.3.4</angular-maven-plugin.version>
         <annotations.version>26.0.2</annotations.version>
-        <apache-rat-plugin.version>0.13</apache-rat-plugin.version>
+        <apache-rat-plugin.version>0.16.1</apache-rat-plugin.version>
         <bc-fips.version>2.1.0</bc-fips.version>
         <bc-fips.version>2.1.0</bc-fips.version>
         <bcpkix-fips.version>2.1.9</bcpkix-fips.version>
         <bcpkix-jdk15to18.version>1.80</bcpkix-jdk15to18.version>
         <bcutil-fips.version>2.1.4</bcutil-fips.version>
-        <build-helper-maven-plugin.version>3.2.0</build-helper-maven-plugin.version>
+        <build-helper-maven-plugin.version>3.6.0</build-helper-maven-plugin.version>
         <caffeine.version>3.2.0</caffeine.version>
         <cas-client-core.version>3.6.4</cas-client-core.version>
         <commons-codec.version>1.17.1</commons-codec.version>
@@ -56,7 +56,7 @@
         <dependency-check-maven.version>8.3.1</dependency-check-maven.version>
         <duo-universal-sdk.version>1.3.1</duo-universal-sdk.version>
         <error_prone_annotations.version>2.38.0</error_prone_annotations.version>
-        <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
+        <exec-maven-plugin.version>3.5.0</exec-maven-plugin.version>
         <firefox.temp.dir>${project.build.directory}/tmp</firefox.temp.dir>
         <guava.version>33.4.8-jre</guava.version>
         <guice.version>7.0.0</guice.version>
@@ -84,27 +84,34 @@
         <kotlin.version>1.9.25</kotlin.version>
         <logback.version>1.5.18</logback.version>
         <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
-        <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
-        <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
-        <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
-        <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
-        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
-        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
-        <maven-war-plugin.version>3.3.1</maven-war-plugin.version>
+        <maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
+        <maven-clean-plugin.version>3.4.1</maven-clean-plugin.version>
+        <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
+        <maven-dependency-plugin.version>3.8.1</maven-dependency-plugin.version>
+        <maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
+        <maven-install-plugin.version>3.1.4</maven-install-plugin.version>
+        <maven-site-plugin.version>3.21.0</maven-site-plugin.version>
+        <maven-javadoc-plugin.version>3.11.2</maven-javadoc-plugin.version>
+        <maven-release-plugin.version>3.1.1</maven-release-plugin.version>
+        <maven-deploy-plugin.version>3.1.4</maven-deploy-plugin.version>
+        <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+        <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
+        <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
+        <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
+        <maven-war-plugin.version>3.4.0</maven-war-plugin.version>
+        <mina-core.version>2.2.4</mina-core.version>
         <minify-maven-plugin.version>2.0.1</minify-maven-plugin.version>
         <mybatis-guice.version>4.0.0</mybatis-guice.version>
         <mybatis.version>3.5.19</mybatis.version>
         <okhttp.version>4.12.0</okhttp.version>
-        <plexus-utils.version>3.5.1</plexus-utils.version>
+        <plexus-utils.version>4.0.2</plexus-utils.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <skipTests>true</skipTests>
         <slf4j.version>2.0.17</slf4j.version>
         <tomcat.version>11.0.7</tomcat.version>
         <versions-maven-plugin.version>2.16.0</versions-maven-plugin.version>
         <woodstox-core.version>7.1.0</woodstox-core.version>
-        <xmlsec.version>2.2.6</xmlsec.version>
+        <xmlsec.version>2.3.5</xmlsec.version>
 
         <checkDependencies>false</checkDependencies>
         <dependency.list.directory>${project.build.directory}/dependencies</dependency.list.directory>
@@ -226,6 +233,15 @@
                     </dependencies>
                 </plugin>
                 <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-assembly-plugin</artifactId><version>${maven-assembly-plugin.version}</version></plugin>
+                <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-clean-plugin</artifactId><version>${maven-clean-plugin.version}</version></plugin>
+                <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-deploy-plugin</artifactId><version>${maven-deploy-plugin.version}</version></plugin>
+                <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-release-plugin</artifactId><version>${maven-release-plugin.version}</version></plugin>
+                <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-install-plugin</artifactId><version>${maven-install-plugin.version}</version></plugin>
+                <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-site-plugin</artifactId><version>${maven-site-plugin.version}</version></plugin>
+                <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-enforcer-plugin</artifactId><version>${maven-enforcer-plugin.version}</version></plugin>
+                <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-jar-plugin</artifactId><version>${maven-jar-plugin.version}</version></plugin>
+                <plugin><groupId>org.codehaus.mojo</groupId><artifactId>build-helper-maven-plugin</artifactId><version>${build-helper-maven-plugin.version}</version></plugin>
+                <plugin><groupId>org.codehaus.plexus</groupId><artifactId>plexus-utils</artifactId><version>${plexus-utils.version}</version></plugin>
                 <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId><version>${maven-compiler-plugin.version}</version>
                     <configuration>
                         <source>17</source>
@@ -285,6 +301,11 @@
                         <skip>true</skip>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>${maven-dependency-plugin.version}</version>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
@@ -333,6 +354,8 @@
             <dependency><groupId>org.junit.jupiter</groupId><artifactId>junit-jupiter-params</artifactId><version>${junit.version}</version></dependency>
             <dependency><groupId>org.slf4j</groupId><artifactId>jul-to-slf4j</artifactId><version>${slf4j.version}</version></dependency>
             <dependency><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId><version>${slf4j.version}</version></dependency>
+            <dependency><groupId>org.apache.mina</groupId><artifactId>mina-core</artifactId><version>${mina-core.version}</version></dependency>
+
         </dependencies>
     </dependencyManagement>
     <profiles>
@@ -343,7 +366,10 @@
             </activation>
             <build>
                 <plugins>
-                    <plugin><artifactId>maven-assembly-plugin</artifactId><version>${maven-assembly-plugin.version}</version>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <version>${maven-assembly-plugin.version}</version>
                         <executions>
                             <execution><id>make-dist-archive</id><phase>package</phase>
                                 <configuration>
